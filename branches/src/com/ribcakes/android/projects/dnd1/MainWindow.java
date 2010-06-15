@@ -31,177 +31,376 @@ import java.util.Random;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class MainWindow extends Activity implements OnClickListener
+public class MainWindow extends Activity
 {
 	private Random gen;
 	private int result;
 	private TextView[] trackers;
 	private rotatingQueue rolls;
-	private TextView text;
-	private AlertDialog alertDialog;
+
 	private SharedPreferences preferences;
-	private boolean dialogState;
-	private int layoutState;
+	private int[] buttonValues;
+	private Button[] buttons;
+	private int currentEdit;
+	private Dialog changeValueDialog;
+	private TextView value;	
 	
-	static final int DIALOG_RESULT = 1;
+	static final int CHANGE_VALUE_DIALOG = 1;
 	static final String PREFERENCE_NAME = "Main Window"; 
-	static final String CHECKED_BOOLEAN_NAME ="Show Dialog";
-	static final int IMAGES = 1;
-	static final int BUTTONS = 2;
-	
-    /** Called when the activity is first created. */
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         
+        buttonValues = new int[8]; //the values of the 7 buttons
+        buttons = new Button[8]; // the 7 buttons themselves
         
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        layoutState = Integer.parseInt(preferences.getString(getString(R.string.layout_preference), "1"));
+               
+        result = -1; //result of a roll
+        
 
-        
-        result = -1;
-        
-        rolls = (rotatingQueue) getLastNonConfigurationInstance();        
-        
-        trackers = new TextView[2];
+        Bundle retained = (Bundle) getLastNonConfigurationInstance();       
+        if(retained != null)
+        {
+	        rolls = (retained.getStringArray("rolls") == null) ? null : new rotatingQueue(6, retained.getStringArray("rolls"));//queue that takes care of the results displayed in the log
+	        currentEdit = retained.getInt("currentEdit", -1);//the array location of the current editing button
+        }
+        else
+        {
+        	currentEdit = -1;
+        	rolls = null;
+        }
 
-        setViews(false);
-        
-        trackers[0].setText("i work lul");
-        
-        if(rolls == null)
+
+        trackers = new TextView[2];//the two text views that display the log                 
+        if(rolls == null) //if the program has just been launched, start with null log, else refresh the views
+        {
+        	setViews(false);
         	rolls = new rotatingQueue(6);
+        }
         else
-    		rolls.updateView(trackers);
+        	setViews(true);
         
-        dialogState = preferences.getBoolean(getString(R.string.checked), false);
+        manageCustomValues();//retrieves custom values and sets onLongClick listeners
+    }    
+    
+	private void manageCustomValues()//retrieves custom values and sets onLongClick listeners and refreshes the text on the buttons
+	{
         
-                
-    }
- 
-    private void setViews(boolean updateViews)
+        buttonValues[0] = preferences.getInt("d20", 20);
+        buttonValues[1] = preferences.getInt("d_custom", 0);
+        buttonValues[2] = preferences.getInt("d4", 4);
+        buttonValues[3] = preferences.getInt("d6", 6);
+        buttonValues[4] = preferences.getInt("d8", 8);
+        buttonValues[5] = preferences.getInt("d10", 10);
+        buttonValues[6] = preferences.getInt("d12", 12);
+        buttonValues[7] = preferences.getInt(getString(R.string.dPercent), 19);
+  
+        
+        logValues("manageCustomValues()");
+        
+        buttons[0] = (Button) findViewById(R.id.d20);           
+        
+        buttons[0].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[2] = (Button) findViewById(R.id.d4);        
+        buttons[2].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[3] = (Button) findViewById(R.id.d6);        
+        buttons[3].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[4] = (Button) findViewById(R.id.d8);        
+        buttons[4].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[5] = (Button) findViewById(R.id.d10);        
+        buttons[5].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[6] = (Button) findViewById(R.id.d12);        
+        buttons[6].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        buttons[7] = (Button) findViewById(R.id.dPercent);        
+        buttons[7].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+        
+        refreshButtonLabels();
+        
+	}
+		
+	private void refreshButtonLabels() 
+	{
+        
+        for(int i = 0; i < 8; i++)
+        {
+        	if(i == 1)
+        		continue;
+        	
+        	buttons[i].setText("");
+        	buttons[i].setText("d"+buttonValues[i]);
+        }
+        
+	}
+	
+	private void changeButtonValue(View v) 
+	{
+		
+    	switch (v.getId())
+    	{
+    		case R.id.d20:
+    			currentEdit = 0;
+    			break;
+    		case R.id.d6:
+    			currentEdit = 3;
+    			break;
+			case R.id.d4:
+    			currentEdit = 2;
+    			break;
+    		case R.id.d8:
+    			currentEdit = 4;
+    			break;
+    		case R.id.d10:
+    			currentEdit = 5;
+    			break;
+    		case R.id.d12:
+    			currentEdit = 6;
+    			break;
+    		case R.id.dPercent:
+    			currentEdit = 7;
+    			break;
+    	}
+    	
+    	showDialog(CHANGE_VALUE_DIALOG);
+	}
+	
+	protected Dialog onCreateDialog(int id) //creates value change dialog
+	{	    	    	
+		
+		LayoutInflater factory = LayoutInflater.from(this);
+	    final View changeValueDialogLayout = factory.inflate(R.layout.change_value_dialog, null);
+	    	    
+	    value = (TextView) changeValueDialogLayout.findViewById(R.id.value);
+	    
+	    changeValueDialog = new AlertDialog.Builder(this)
+	        .setTitle(R.string.change_value_dialog_title)
+	        .setView(changeValueDialogLayout)
+	        .setPositiveButton("Ok", 
+	        		new DialogInterface.OnClickListener() 
+	                {
+	                    public void onClick(DialogInterface dialog, int whichButton) 
+	                    {
+	                    	try
+	                    	{
+                    			int newValue = Integer.parseInt(value.getText().toString());	                    	
+                    			setNewValue(newValue);
+	                    	}
+	                    	catch (NumberFormatException e)
+	                    	{
+	                    		Log.i("MainWindow:onCreateDialog():onClick()", "NumberFormatException: "+e);
+	                    	}
+	                    }
+	                })
+	        .setNegativeButton("Cancel", 
+	        		new DialogInterface.OnClickListener() 
+	        		{
+	                    public void onClick(DialogInterface dialog, int whichButton) 
+	                    {
+	                    	//canceling does nothing!
+	                    }
+	                })
+	        .create();
+	    
+	    	onPrepareDialog(CHANGE_VALUE_DIALOG, changeValueDialog);
+		
+	    return changeValueDialog;
+    } 
+		
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) //makes sure dialog displays correct value
+	{
+		super.onPrepareDialog(id, dialog);
+		
+	    value.setText(buttonValues[currentEdit]+"");
+
+	}
+
+	private void setNewValue(int value)
+	{
+    	if(value >= 2)
+    	{
+    		buttonValues[currentEdit] = value;
+    	}
+    	else
+    	{
+    		Toast.makeText(this, "Cannot randomly generate a number between 1 and "+value+".  Please try again.", Toast.LENGTH_LONG);
+    	}
+		
+		refreshButtonLabels();
+		
+		logValues("setNewValue()");
+	}
+		
+	private void setViews(boolean updateViews) //refreshes the views on layout change and program initialization
     {
-        if(layoutState == BUTTONS)
-        	setContentView(R.layout.alternate);
-        else
-        	setContentView(R.layout.main);
+		setContentView(R.layout.alternate);
         
         trackers[0] = (TextView) findViewById(R.id.tracker1);
         trackers[1] = (TextView) findViewById(R.id.tracker2);
     
         if(updateViews)
         	rolls.updateView(trackers);
+        
+        logValues("setViews()");
     }
-    
-    
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{		
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
+	
+	@Override
+	protected void onResume() 
+	{
+        manageCustomValues();//retrieves custom values and sets onLongClick listeners
+		super.onResume();
 	}
 
-    
-	public boolean onOptionsItemSelected(MenuItem item) 
+	private void logValues(String caller)
 	{
-		switch (item.getItemId()) 
+		for(int i: buttonValues)
 		{
-		
-		case R.id.preferences:
-			
-			Intent i = new Intent(this, com.ribcakes.android.projects.dnd1.Preferences.class);
-			startActivity(i);
-			
-		}							
-		return true;
+			Log.i("MainWindow:logValues():"+caller, "value:"+i);
+		}
+		Log.i("MainWindow:logValues()", "Print Finished");
 	}
-	
-    protected void onResume()
-    {    	
-    	dialogState = preferences.getBoolean(getString(R.string.checked), true);
-        layoutState = Integer.parseInt(preferences.getString(getString(R.string.layout_preference), "1"));
-    	
-    	setViews(true);
-    	
-    	super.onResume();
-    }
 	
 	
 	@Override
-    protected void onStop()
+    protected void onStop() //saves the custom values of the buttons when the program is moved back from the front
     {
        super.onStop();
 
  
       SharedPreferences settings = getSharedPreferences(PREFERENCE_NAME, 0);
       SharedPreferences.Editor editor = settings.edit();
-      editor.putBoolean(getString(R.string.checked), dialogState);
-      editor.putString(getString(R.string.layout_preference), layoutState+"");
 
+      editor.putString("BALL", "I AM A FUCKING BALL BITCH");
+      editor.putInt("d20", buttonValues[0]);
+      editor.putInt("d4", buttonValues[2]);
+      editor.putInt("d6", buttonValues[3]);
+      editor.putInt("d8", buttonValues[4]);
+      editor.putInt("d10", buttonValues[5]);
+      editor.putInt("d12", buttonValues[6]);
+      editor.putInt(getString(R.string.dPercent), buttonValues[7]);
+      
       editor.commit();
+
+      Log.i("MainWindow:onStop()", "variables put");
+     
+      Log.i("MainWindow:onStop()", "value of d100: "+preferences.getInt(getString(R.string.dPercent), -1));
+      
+      Log.i("MainWindow:onStop()", "value of d120: "+preferences.getInt(getString(R.string.d20), -4));
+
+      Log.i("MainWindow:onStop()", "value of BALL: "+ preferences.getString("BALL", "I AM A CUBE YOU WHORE"));
+      
+      logValues("onStop()");
+      
     }
-
-    
-    protected void onPrepareDialog(int id, Dialog dialog)
-    {
-    	text.setText("");
-    	text.setText(result+"");
-    }
-    
-
-    protected Dialog onCreateDialog(int id) 
-    {    	    	
-
-    	AlertDialog.Builder builder;
-    	
-    	
-    	LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-    	View layout = inflater.inflate(R.layout.custom_dialog,
-    	                               (ViewGroup) findViewById(R.id.layout_root));	
-    	
-    	text = (TextView) layout.findViewById(R.id.result);  
-    			
-    	builder = new AlertDialog.Builder(this);
-    	builder.setView(layout);
-    	
-    	alertDialog = builder.create();
-    	
-
-		onPrepareDialog(DIALOG_RESULT, alertDialog);		
-    	
-		
-		
-		return alertDialog;    	    	    	    	    	   
-    }    
-
-    
-    public void onClick(View v)
-    {
-    	alertDialog.dismiss();
-    }
-    
-    
-	public void clickHandler(View view)
-    {
-		Log.i("clickHandler", "made it in");
-		
-		
+    	    
+	public void clickHandler(View view) //Dice
+    {		
     	gen = new Random();
     	result = -1;
     	String type = "";
@@ -209,55 +408,43 @@ public class MainWindow extends Activity implements OnClickListener
     	switch (view.getId())
     	{
     		case R.id.d20:
-    			result = gen.nextInt(20)+1;
+    			result = gen.nextInt(buttonValues[0])+1;
     			type = "d20";
     			break;
     		case R.id.d6:
-    			result = gen.nextInt(6)+1;
+    			result = gen.nextInt(buttonValues[3])+1;
     			type = "d6";
     			break;
 			case R.id.d4:
-    			result = gen.nextInt(4)+1;
+    			result = gen.nextInt(buttonValues[2])+1;
     			type = "d4";
     			break;
     		case R.id.d8:
-    			result = gen.nextInt(8)+1;
+    			result = gen.nextInt(buttonValues[4])+1;
     			type = "d8";
     			break;
     		case R.id.d10:
-    			result = gen.nextInt(10)+1;
+    			result = gen.nextInt(buttonValues[5])+1;
     			type = "d10";
     			break;
     		case R.id.d12:
-    			result = gen.nextInt(12)+1;
+    			result = gen.nextInt(buttonValues[6])+1;
     			type = "d12";
     			break;
     		case R.id.dPercent:
-    			result = gen.nextInt(100)+1;
+    			result = gen.nextInt(buttonValues[7])+1;
     			type = "d100";
     			break;
     	}
     	
-    	Log.i("clickHandler", "Dialog State: "+dialogState);
-    	Log.i("clickHandler", "Layout State: "+layoutState);
-    	Log.i("clickHandler", "Result: "+result);
-    	
-    	
-    	if(dialogState)
-    	{
-    		showDialog(DIALOG_RESULT);
-    	}
-    	
     	if(result >= 0)
-    	{
-    		Log.i("clickHandler", "in rolls");
-    		
+    	{    		
     		rolls.add(type+": "+result);
     		rolls.updateView(trackers);
     	}    	
     }
     
-    public void clickListener(View view)
+    public void clickListener(View view) //Buttons
     {
     	switch(view.getId())
     	{
@@ -271,10 +458,35 @@ public class MainWindow extends Activity implements OnClickListener
     			System.exit(0);
     	}
     }
-    
-    public rotatingQueue onRetainNonConfigurationInstance()
+  
+    public void customDialogButtonsOnClick(View v)
     {
-    	return rolls;
+    	int temp = -1;
+    	
+    	switch(v.getId())
+    	{
+    		case R.id.plus:
+    			temp = Integer.parseInt(value.getText().toString());
+    			temp++;
+				value.setText(""+temp);
+    			break;
+    		case R.id.minus:
+    			temp = Integer.parseInt(value.getText().toString());
+    			temp--;
+				value.setText(""+temp);
+    			break;
+    	}
+    }
+    
+    public Bundle onRetainNonConfigurationInstance() //retains queue for log retention on orientation change
+    {
+    	Bundle retain = new Bundle();
+    	
+    	retain.putStringArray("rolls", rolls.getLog());
+    	retain.putInt("currentEdit", currentEdit);
+    	
+    	return retain;
+    	
     }
     
     
