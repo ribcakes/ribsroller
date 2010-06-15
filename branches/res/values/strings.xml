@@ -49,5 +49,8 @@
 	<string name="layout_preference">Show Buttons</string>
 	<string name="layout_message">Options for user interaction.</string>
 	
+	<string name="change_value_dialog_title">Change Value</string>
+	<string name="plus">+</string>
+	<string name="minus">-</string>
 
 </resources>

@@ -29,7 +29,8 @@ import android.widget.TextView;
  */
 
 
-public class rotatingQueue {
+public class rotatingQueue 
+{
 
 	private String[] queue;
 	private int head;
@@ -46,6 +47,14 @@ public class rotatingQueue {
 		this.length = 0;
 	}
 	
+	public rotatingQueue(int size, String[] log)
+	{
+		this.size = size;
+		this.queue = log.clone();
+		this.head = 0;
+		this.tail = 0;
+		this.length = 0;
+	}
 	
 	public String element() 
 	{
@@ -131,5 +140,10 @@ public class rotatingQueue {
 		}
 	}
 
+	public String[] getLog()
+	{
+		return queue;
+	}
+	
 
 }
