@@ -54,6 +54,7 @@
 	  		android:minWidth="75dp"
 	  		android:minHeight="75dp"
 	  		android:onClick="clickHandler"
+	  		android:longClickable="true"
 			android:background="@drawable/button_background"
 			android:textColor="@drawable/text_color"
 			android:textSize="18sp"
