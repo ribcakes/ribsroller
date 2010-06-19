@@ -49,7 +49,7 @@ public class MainWindow extends Activity
 	private Random gen;
 	private int result;
 	private TextView[] trackers;
-	private rotatingQueue rolls;
+	private RotatingQueue rolls;
 
 	private SharedPreferences preferences;
 	private int[] buttonValues;
@@ -78,21 +78,24 @@ public class MainWindow extends Activity
         Bundle retained = (Bundle) getLastNonConfigurationInstance();       
         if(retained != null)
         {
-	        rolls = (retained.getStringArray("rolls") == null) ? null : new rotatingQueue(6, retained.getStringArray("rolls"));//queue that takes care of the results displayed in the log
-	        currentEdit = retained.getInt("currentEdit", -1);//the array location of the current editing button
+        	//queue that takes care of the results displayed in the log
+        	rolls = (retained.getStringArray("rolls") == null) ? null : new RotatingQueue(6, retained.getStringArray("rolls"),
+    																						retained.getInt("head"), retained.getInt("tail"));
+	        
+        	//the array location of the current editing button
+        	currentEdit = retained.getInt("currentEdit", -1);
         }
         else
         {
         	currentEdit = -1;
         	rolls = null;
-        }
-
+        }        
 
         trackers = new TextView[2];//the two text views that display the log                 
         if(rolls == null) //if the program has just been launched, start with null log, else refresh the views
         {
         	setViews(false);
-        	rolls = new rotatingQueue(6);
+        	rolls = new RotatingQueue(6);
         }
         else
         	setViews(true);
@@ -427,7 +430,7 @@ public class MainWindow extends Activity
     		case R.id.clearbutton:
     			for(TextView i : trackers)
     				i.setText("");
-    			rolls = new rotatingQueue(6);
+    			rolls = new RotatingQueue(6);
     			break;
     		case R.id.quitbutton:
     			finish();
@@ -459,6 +462,8 @@ public class MainWindow extends Activity
     	Bundle retain = new Bundle();
     	
     	retain.putStringArray("rolls", rolls.getLog());
+    	retain.putInt("head", rolls.getHead());
+    	retain.putInt("tail", rolls.getTail());
     	retain.putInt("currentEdit", currentEdit);
     	
     	return retain;
