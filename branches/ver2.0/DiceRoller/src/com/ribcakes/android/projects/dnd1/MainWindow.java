@@ -69,7 +69,7 @@ public class MainWindow extends Activity
         
         buttonValues = new int[8]; //the values of the 7 buttons
         buttons = new Button[8]; // the 7 buttons themselves
-        
+        	
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
                
         result = -1; //result of a roll
