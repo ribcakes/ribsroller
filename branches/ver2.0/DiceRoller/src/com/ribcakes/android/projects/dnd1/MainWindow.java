@@ -34,6 +34,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,7 @@ public class MainWindow extends Activity
         buttonValues = new int[8]; //the values of the 7 buttons
         buttons = new Button[8]; // the 7 buttons themselves
         
-        preferences = getSharedPreferences(PREFERENCE_NAME, 0);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
                
         result = -1; //result of a roll
         
@@ -86,8 +87,7 @@ public class MainWindow extends Activity
         	rolls = null;
         }
 
-        
-        
+
         trackers = new TextView[2];//the two text views that display the log                 
         if(rolls == null) //if the program has just been launched, start with null log, else refresh the views
         {
@@ -103,17 +103,16 @@ public class MainWindow extends Activity
 	private void manageCustomValues()//retrieves custom values and sets onLongClick listeners and refreshes the text on the buttons
 	{
         
-        buttonValues[0] = preferences.getInt("d20", 20);
+        buttonValues[0] = preferences.getInt(getString(R.string.d20), 20);
         buttonValues[1] = preferences.getInt("d_custom", 0);
-        buttonValues[2] = preferences.getInt("d4", 4);
-        buttonValues[3] = preferences.getInt("d6", 6);
-        buttonValues[4] = preferences.getInt("d8", 8);
-        buttonValues[5] = preferences.getInt("d10", 10);
-        buttonValues[6] = preferences.getInt("d12", 12);
-        buttonValues[7] = preferences.getInt(getString(R.string.dPercent), 19);
+        buttonValues[2] = preferences.getInt(getString(R.string.d4), 4);
+        buttonValues[3] = preferences.getInt(getString(R.string.d6), 6);
+        buttonValues[4] = preferences.getInt(getString(R.string.d8), 8);
+        buttonValues[5] = preferences.getInt(getString(R.string.d10), 10);
+        buttonValues[6] = preferences.getInt(getString(R.string.d12), 12);
+        buttonValues[7] = preferences.getInt(getString(R.string.dPercent), 100);
   
         
-        logValues("manageCustomValues()");
         
         buttons[0] = (Button) findViewById(R.id.d20);           
         
@@ -334,7 +333,6 @@ public class MainWindow extends Activity
 		
 		refreshButtonLabels();
 		
-		logValues("setNewValue()");
 	}
 		
 	private void setViews(boolean updateViews) //refreshes the views on layout change and program initialization
@@ -347,7 +345,6 @@ public class MainWindow extends Activity
         if(updateViews)
         	rolls.updateView(trackers);
         
-        logValues("setViews()");
     }
 	
 	@Override
@@ -356,16 +353,6 @@ public class MainWindow extends Activity
         manageCustomValues();//retrieves custom values and sets onLongClick listeners
 		super.onResume();
 	}
-
-	private void logValues(String caller)
-	{
-		for(int i: buttonValues)
-		{
-			Log.i("MainWindow:logValues():"+caller, "value:"+i);
-		}
-		Log.i("MainWindow:logValues()", "Print Finished");
-	}
-	
 	
 	@Override
     protected void onStop() //saves the custom values of the buttons when the program is moved back from the front
@@ -377,26 +364,15 @@ public class MainWindow extends Activity
       SharedPreferences.Editor editor = settings.edit();
 
       editor.putString("BALL", "I AM A FUCKING BALL BITCH");
-      editor.putInt("d20", buttonValues[0]);
-      editor.putInt("d4", buttonValues[2]);
-      editor.putInt("d6", buttonValues[3]);
-      editor.putInt("d8", buttonValues[4]);
-      editor.putInt("d10", buttonValues[5]);
-      editor.putInt("d12", buttonValues[6]);
+      editor.putInt(getString(R.string.d20), buttonValues[0]);
+      editor.putInt(getString(R.string.d4), buttonValues[2]);
+      editor.putInt(getString(R.string.d6), buttonValues[3]);
+      editor.putInt(getString(R.string.d8), buttonValues[4]);
+      editor.putInt(getString(R.string.d10), buttonValues[5]);
+      editor.putInt(getString(R.string.d12), buttonValues[6]);
       editor.putInt(getString(R.string.dPercent), buttonValues[7]);
       
-      editor.commit();
-
-      Log.i("MainWindow:onStop()", "variables put");
-     
-      Log.i("MainWindow:onStop()", "value of d100: "+preferences.getInt(getString(R.string.dPercent), -1));
-      
-      Log.i("MainWindow:onStop()", "value of d120: "+preferences.getInt(getString(R.string.d20), -4));
-
-      Log.i("MainWindow:onStop()", "value of BALL: "+ preferences.getString("BALL", "I AM A CUBE YOU WHORE"));
-      
-      logValues("onStop()");
-      
+      editor.commit();    
     }
     	    
 	public void clickHandler(View view) //Dice
