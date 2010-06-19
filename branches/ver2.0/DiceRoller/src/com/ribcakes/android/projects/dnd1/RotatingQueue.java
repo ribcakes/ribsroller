@@ -1,5 +1,8 @@
 package com.ribcakes.android.projects.dnd1;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -29,7 +32,7 @@ import android.widget.TextView;
  */
 
 
-public class rotatingQueue 
+public class RotatingQueue
 {
 
 	private String[] queue;
@@ -38,7 +41,7 @@ public class rotatingQueue
 	private int length;
 	private int size;
 	
-	public rotatingQueue(int size)
+	public RotatingQueue(int size)
 	{
 		this.size = size;
 		this.queue = new String[this.size];
@@ -47,18 +50,23 @@ public class rotatingQueue
 		this.length = 0;
 	}
 	
-	public rotatingQueue(int size, String[] log)
+	public RotatingQueue(int size, String[] log, int head, int tail)
 	{
 		this.size = size;
 		this.queue = log.clone();
-		this.head = 0;
-		this.tail = 0;
+		this.head = head;
+		this.tail = tail;
 		this.length = 0;
 	}
 	
-	public String element() 
+	public int getHead() 
 	{
-		return queue[head];
+		return head;
+	}
+
+	public int getTail() 
+	{
+		return tail;
 	}
 
 	public boolean add(String o) 
@@ -102,7 +110,6 @@ public class rotatingQueue
 		return length == 0;
 	}
 
-
 	public int size() 
 	{
 		return length;
@@ -145,5 +152,12 @@ public class rotatingQueue
 		return queue;
 	}
 	
+	public void printContents()
+	{
+		for(String i: queue)
+		{
+			Log.i("RotatingQueue:printContents()", "value: "+i);
+		}
+	}
 
 }
