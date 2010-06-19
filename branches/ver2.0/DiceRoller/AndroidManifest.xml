@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+ 
+ @author Brian Stambaugh
+
+ Copyright 2010 Brian Stambaugh
+ This program is distributed under the terms of the GNU General Public License.
+ 
+  This file is part of Rib's Roller.
+
+   Rib's Roller is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Rib's Roller is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with Rib's Roller.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.ribcakes.android.projects.dnd1"
+      android:versionName="2.0.1" android:versionCode="29">
+      
+    <application android:icon="@drawable/d10" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+    
+    
+        <activity android:name=".MainWindow"
+                  android:label="@string/app_name">
+    
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+    
+        </activity>
+
+
+	</application>
+    
+    <uses-sdk android:minSdkVersion="7" />
+    
+    <supports-screens android:largeScreens="false"></supports-screens>
+</manifest> 
