@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+ 
+ @author Brian Stambaugh
+
+ Copyright 2010 Brian Stambaugh
+ This program is distributed under the terms of the GNU General Public License.
+ 
+  This file is part of Rib's Roller.
+
+   Rib's Roller is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Rib's Roller is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with Rib's Roller.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources>
+    <string name="hello">Roll the Dice!</string>
+    <string name="app_name">Rib\'s Roller</string>
+	<string name="d20">d20</string>
+	<string name="d4">d4</string>
+	<string name="d6">d6</string>
+	<string name="d8">d8</string>
+	<string name="d10">d10</string>
+	<string name="d12">d12</string>
+	<string name="dPercent">d100</string>	
+	
+	
+	<string name="clear">Clear</string>
+	<string name="quit">Quit</string>
+	<string name="ok">Ok</string>
+	
+	<string name="dialog_on">A dialog will be shown with each roll.</string>
+	<string name="dialog_off">No dialog will be shown.</string>
+	<string name="dialog_title">Dialog Box</string>
+	<string name="checked">Show Dialog</string>
+	
+
+	<string name="layout_title">User Input</string>
+	<string name="layout_preference">Show Buttons</string>
+	<string name="layout_message">Options for user interaction.</string>
+	
+	<string name="change_value_dialog_title">Change Value</string>
+	<string name="plus">+</string>
+	<string name="minus">-</string>
+
+</resources>
