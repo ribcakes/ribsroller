@@ -32,11 +32,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
@@ -469,6 +473,29 @@ public class MainWindow extends Activity
     	return retain;
     	
     }
+    
+    public boolean onCreateOptionsMenu(Menu menu) 
+    {               
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+            return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+            switch (item.getItemId()) 
+            {
+            
+            	case R.id.preferences:                   
+                    Intent i = new Intent(this, Preferences.class);
+                    startActivity(i);
+                    break;
+                    
+            }                                                       
+            return true;
+    }
+
     
     
 }
