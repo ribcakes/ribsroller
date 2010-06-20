@@ -50,7 +50,7 @@
 	<string name="custom_button_two_checked">rghtCstmBttn</string>
 	
 	<string name="user_input_buttons">Buttons will be displayed for user input.</string>
-	<string name="user_input_images">Images will be displayed for user input.</string>
+	<string name="user_input_images">Buttons will not be displayed for user input.</string>
 	<string name="user_input_title">User Input</string>
 	<string name="user_input_checked">usrInpt</string>	
 
