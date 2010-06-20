@@ -118,8 +118,6 @@ public class MainWindow extends Activity
         }
         else
         	setViews(true);
-        
-        setOnLongClickListeners();//sets onLongClick listeners
     }    
     
 	private void setOnLongClickListeners()//sets onLongClick listeners and refreshes the text on the buttons
@@ -231,7 +229,6 @@ public class MainWindow extends Activity
 				});
                
         buttons[1] = (Button) findViewById(R.id.left_custom_button);                   
-        Log.i("MainWindow:setOnLongClickListeners()", "value of left custom button: "+buttons[1]);
         buttons[1].setOnLongClickListener(
         		new OnLongClickListener() 
         		{
@@ -379,8 +376,13 @@ public class MainWindow extends Activity
 		
 	private void setViews(boolean updateViews) //refreshes the views on layout change and program initialization
     {
-		setContentView(R.layout.alternate);
-
+		if(buttonsOn)
+		{
+			setContentView(R.layout.alternate);
+			setOnLongClickListeners();
+		}
+		else
+			setContentView(R.layout.main);
 		
         trackers[0] = (TextView) findViewById(R.id.tracker1);
         trackers[1] = (TextView) findViewById(R.id.tracker2);
@@ -394,10 +396,16 @@ public class MainWindow extends Activity
 	@Override
 	protected void onResume() 
 	{
-		getStoredPreferenceValues();	        
-        refreshButtonLabels();
-        refreshCustomButtonState();
-        
+		getStoredPreferenceValues();
+	
+		setViews(true);
+		
+		if(buttonsOn)
+		{
+			setOnLongClickListeners();
+	        refreshButtonLabels();
+	        refreshCustomButtonState();
+		}
 		super.onResume();
 	}
 	
