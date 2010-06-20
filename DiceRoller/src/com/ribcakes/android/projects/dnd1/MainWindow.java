@@ -117,9 +117,27 @@ public class MainWindow extends Activity
         	rolls = new RotatingQueue(6);
         }
         else
-        	setViews(true);
+        	setViews(true);        
     }    
     
+	protected void resetCustomValues() 
+	{
+		if(buttonsOn)
+		{
+	        buttonValues[0] = 20;
+	        buttonValues[1] = 2;
+	        buttonValues[2] = 4;
+	        buttonValues[3] = 6;
+	        buttonValues[4] = 8;
+	        buttonValues[5] = 10;
+	        buttonValues[6] = 12;
+	        buttonValues[7] = 100;
+	        buttonValues[8] = 2;
+
+	        refreshButtonLabels();
+		}
+	}
+
 	private void setOnLongClickListeners()//sets onLongClick listeners and refreshes the text on the buttons
 	{
 		
@@ -258,6 +276,21 @@ public class MainWindow extends Activity
 
 				});
 	
+        Button clearButton = (Button)findViewById(R.id.clearbutton);
+        clearButton.setLongClickable(true);
+        clearButton.setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						resetCustomValues();
+						return true;
+					}
+				});
+        
+        
 	}
 		
 	private void refreshButtonLabels() 
@@ -331,7 +364,7 @@ public class MainWindow extends Activity
 	                    	}
 	                    	catch (NumberFormatException e)
 	                    	{
-	                    		Log.i("MainWindow:onCreateDialog():onClick()", "NumberFormatException: "+e);
+	                    		Log.e("Rib's Roller:MainWindow:onCreateDialog():onClick()", "NumberFormatException: "+e);
 	                    	}
 	                    }
 	                })
@@ -398,7 +431,7 @@ public class MainWindow extends Activity
 	{
 		getStoredPreferenceValues();
 	
-		setViews(true);
+		setViews(true);	
 		
 		if(buttonsOn)
 		{
@@ -453,12 +486,7 @@ public class MainWindow extends Activity
         leftCustomButton = preferences.getBoolean(getString(R.string.custom_button_one_checked), false);
         rightCustomButton = preferences.getBoolean(getString(R.string.custom_button_two_checked), false);
         
-        buttonsOn = preferences.getBoolean(getString(R.string.user_input_checked), true);       
-        
-        
-        Log.i("MainWindow:getStoredPreferenceValues()", "buttons used?: "+buttonsOn);
-        Log.i("MainWindow:getStoredPreferenceValues()", "left custom button on?: "+leftCustomButton);
-        Log.i("MainWindow:getStoredPreferenceValues()", "right custom butotn on?: "+rightCustomButton);
+        buttonsOn = preferences.getBoolean(getString(R.string.user_input_checked), true);              
 	}
 
 	public void setStoredPreferenceValues()
