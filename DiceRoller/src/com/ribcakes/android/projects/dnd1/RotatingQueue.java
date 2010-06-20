@@ -1,7 +1,5 @@
 package com.ribcakes.android.projects.dnd1;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.TextView;
 
