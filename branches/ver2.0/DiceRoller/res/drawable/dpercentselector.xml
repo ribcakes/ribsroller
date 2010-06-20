@@ -23,27 +23,10 @@
    along with Rib's Roller.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.ribcakes.android.projects.dnd1"
-      android:versionCode="33" android:versionName="2.1.2">
-      
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
-    
-    
-        <activity android:name=".MainWindow"
-                  android:label="@string/app_name">
-    
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-    
-        </activity>
-
-
-	<activity android:name=".Preferences"></activity>
-</application>
-    
-    <uses-sdk android:minSdkVersion="7" />
-    
-</manifest> 
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item android:state_pressed="true"
+           android:drawable="@drawable/dpercentinvert" /> <!-- pressed -->
+     <item android:state_focused="true"
+           android:drawable="@drawable/dpercentinvert" /> <!-- focused -->
+     <item android:drawable="@drawable/dpercent" /> <!-- default -->
+ </selector>
