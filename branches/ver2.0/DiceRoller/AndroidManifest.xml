@@ -41,7 +41,8 @@
         </activity>
 
 
-	</application>
+	<activity android:name=".Preferences"></activity>
+</application>
     
     <uses-sdk android:minSdkVersion="7" />
     

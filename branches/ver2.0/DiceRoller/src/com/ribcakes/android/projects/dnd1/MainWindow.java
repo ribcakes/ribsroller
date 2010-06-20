@@ -62,8 +62,15 @@ public class MainWindow extends Activity
 	private Dialog changeValueDialog;
 	private TextView value;	
 	
+	private boolean leftCustomButton;
+	private boolean rightCustomButton;
+	private boolean buttonsOn;
+	
 	static final int CHANGE_VALUE_DIALOG = 1;
 	static final String PREFERENCE_NAME = "Main Window"; 
+    static final int IMAGES = 1;
+    static final int BUTTONS = 2;
+
 
 	/** Called when the activity is first created. */
     @Override
@@ -71,13 +78,21 @@ public class MainWindow extends Activity
     {
         super.onCreate(savedInstanceState);
         
-        buttonValues = new int[8]; //the values of the 7 buttons
-        buttons = new Button[8]; // the 7 buttons themselves
+        buttonValues = new int[9]; //the values of the 9 buttons
+        buttons = new Button[9]; // the 9 buttons themselves
         	
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-               
-        result = -1; //result of a roll
         
+        if(preferences.getBoolean("Kh9bhT", true))
+        {
+        	preferences.edit().clear().commit();
+                	
+        	SharedPreferences.Editor editor = preferences.edit();
+        	editor.putBoolean("Kh9bhT", false);
+        	editor.commit();
+        }
+        
+        result = -1; //result of a roll
 
         Bundle retained = (Bundle) getLastNonConfigurationInstance();       
         if(retained != null)
@@ -104,25 +119,13 @@ public class MainWindow extends Activity
         else
         	setViews(true);
         
-        manageCustomValues();//retrieves custom values and sets onLongClick listeners
+        setOnLongClickListeners();//sets onLongClick listeners
     }    
     
-	private void manageCustomValues()//retrieves custom values and sets onLongClick listeners and refreshes the text on the buttons
+	private void setOnLongClickListeners()//sets onLongClick listeners and refreshes the text on the buttons
 	{
-        
-        buttonValues[0] = preferences.getInt(getString(R.string.d20), 20);
-        buttonValues[1] = preferences.getInt("d_custom", 0);
-        buttonValues[2] = preferences.getInt(getString(R.string.d4), 4);
-        buttonValues[3] = preferences.getInt(getString(R.string.d6), 6);
-        buttonValues[4] = preferences.getInt(getString(R.string.d8), 8);
-        buttonValues[5] = preferences.getInt(getString(R.string.d10), 10);
-        buttonValues[6] = preferences.getInt(getString(R.string.d12), 12);
-        buttonValues[7] = preferences.getInt(getString(R.string.dPercent), 100);
-  
-        
-        
-        buttons[0] = (Button) findViewById(R.id.d20);           
-        
+		
+        buttons[0] = (Button) findViewById(R.id.d20);  
         buttons[0].setOnLongClickListener(
         		new OnLongClickListener() 
         		{
@@ -226,20 +229,46 @@ public class MainWindow extends Activity
 					}
 
 				});
-        
-        refreshButtonLabels();
-        
+               
+        buttons[1] = (Button) findViewById(R.id.left_custom_button);                   
+        Log.i("MainWindow:setOnLongClickListeners()", "value of left custom button: "+buttons[1]);
+        buttons[1].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+
+        buttons[8] = (Button) findViewById(R.id.right_custom_button);                  
+        buttons[8].setOnLongClickListener(
+        		new OnLongClickListener() 
+        		{
+			
+					@Override
+					public boolean onLongClick(View v) 
+					{
+						changeButtonValue(v);
+						
+						return true;
+					}
+
+				});
+	
 	}
 		
 	private void refreshButtonLabels() 
 	{
         
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < 9; i++)
         {
-        	if(i == 1)
-        		continue;
-        	
-        	buttons[i].setText("");
+           	buttons[i].setText("");
         	buttons[i].setText("d"+buttonValues[i]);
         }
         
@@ -270,6 +299,12 @@ public class MainWindow extends Activity
     			break;
     		case R.id.dPercent:
     			currentEdit = 7;
+    			break;
+    		case R.id.left_custom_button:
+    			currentEdit = 1;
+    			break;
+    		case R.id.right_custom_button:
+    			currentEdit = 8;
     			break;
     	}
     	
@@ -335,7 +370,7 @@ public class MainWindow extends Activity
     	}
     	else
     	{
-    		Toast.makeText(this, "Cannot randomly generate a number between 1 and "+value+".  Please try again.", Toast.LENGTH_LONG);
+    		Toast.makeText(this, "Cannot randomly generate a number between 1 and "+value+".  Please try again.", Toast.LENGTH_LONG).show();
     	}
 		
 		refreshButtonLabels();
@@ -345,10 +380,12 @@ public class MainWindow extends Activity
 	private void setViews(boolean updateViews) //refreshes the views on layout change and program initialization
     {
 		setContentView(R.layout.alternate);
-        
+
+		
         trackers[0] = (TextView) findViewById(R.id.tracker1);
         trackers[1] = (TextView) findViewById(R.id.tracker2);
     
+        
         if(updateViews)
         	rolls.updateView(trackers);
         
@@ -357,8 +394,87 @@ public class MainWindow extends Activity
 	@Override
 	protected void onResume() 
 	{
-        manageCustomValues();//retrieves custom values and sets onLongClick listeners
+		getStoredPreferenceValues();	        
+        refreshButtonLabels();
+        refreshCustomButtonState();
+        
 		super.onResume();
+	}
+	
+	private void refreshCustomButtonState() 
+	{
+		if(buttonsOn)
+		{
+			if(leftCustomButton)
+				buttons[1].setVisibility(Button.VISIBLE);
+			else
+				buttons[1].setVisibility(Button.INVISIBLE);
+
+			if(rightCustomButton)
+				buttons[8].setVisibility(Button.VISIBLE);
+			else
+				buttons[8].setVisibility(Button.INVISIBLE);
+
+			buttons[1].setEnabled(leftCustomButton);
+			buttons[8].setEnabled(rightCustomButton);
+			
+		}
+		else
+		{
+			buttons[1].setVisibility(Button.INVISIBLE);
+			buttons[1].setEnabled(false);
+
+			buttons[8].setVisibility(Button.INVISIBLE);
+			buttons[8].setEnabled(false);
+
+		}
+	}
+
+	public void getStoredPreferenceValues()
+	{
+        buttonValues[0] = preferences.getInt(getString(R.string.d20), 20);
+        buttonValues[1] = preferences.getInt("d_custom_left", 2);
+        buttonValues[2] = preferences.getInt(getString(R.string.d4), 4);
+        buttonValues[3] = preferences.getInt(getString(R.string.d6), 6);
+        buttonValues[4] = preferences.getInt(getString(R.string.d8), 8);
+        buttonValues[5] = preferences.getInt(getString(R.string.d10), 10);
+        buttonValues[6] = preferences.getInt(getString(R.string.d12), 12);
+        buttonValues[7] = preferences.getInt(getString(R.string.dPercent), 100);
+        buttonValues[8] = preferences.getInt("d_custom_right", 2);
+        
+        leftCustomButton = preferences.getBoolean(getString(R.string.custom_button_one_checked), false);
+        rightCustomButton = preferences.getBoolean(getString(R.string.custom_button_two_checked), false);
+        
+        buttonsOn = preferences.getBoolean(getString(R.string.user_input_checked), true);       
+        
+        
+        Log.i("MainWindow:getStoredPreferenceValues()", "buttons used?: "+buttonsOn);
+        Log.i("MainWindow:getStoredPreferenceValues()", "left custom button on?: "+leftCustomButton);
+        Log.i("MainWindow:getStoredPreferenceValues()", "right custom butotn on?: "+rightCustomButton);
+	}
+
+	public void setStoredPreferenceValues()
+	{
+		SharedPreferences.Editor editor = preferences.edit();
+
+		editor.putInt(getString(R.string.d20), buttonValues[0]);
+		editor.putInt(getString(R.string.d4), buttonValues[2]);
+		editor.putInt(getString(R.string.d6), buttonValues[3]);
+		editor.putInt(getString(R.string.d8), buttonValues[4]);
+		editor.putInt(getString(R.string.d10), buttonValues[5]);
+		editor.putInt(getString(R.string.d12), buttonValues[6]);
+		editor.putInt(getString(R.string.dPercent), buttonValues[7]);
+
+		editor.putInt("d_custom_left", buttonValues[1]);
+		editor.putInt("d_custom_right", buttonValues[8]);
+		
+		editor.putBoolean(getString(R.string.custom_button_one_checked), leftCustomButton);
+		editor.putBoolean(getString(R.string.custom_button_two_checked), rightCustomButton);
+
+		editor.putBoolean(getString(R.string.user_input_checked), buttonsOn);
+
+				
+		editor.commit();    
 	}
 	
 	@Override
@@ -366,21 +482,8 @@ public class MainWindow extends Activity
     {
        super.onStop();
 
- 
-      SharedPreferences settings = getSharedPreferences(PREFERENCE_NAME, 0);
-      SharedPreferences.Editor editor = settings.edit();
-
-      editor.putString("BALL", "I AM A FUCKING BALL BITCH");
-      editor.putInt(getString(R.string.d20), buttonValues[0]);
-      editor.putInt(getString(R.string.d4), buttonValues[2]);
-      editor.putInt(getString(R.string.d6), buttonValues[3]);
-      editor.putInt(getString(R.string.d8), buttonValues[4]);
-      editor.putInt(getString(R.string.d10), buttonValues[5]);
-      editor.putInt(getString(R.string.d12), buttonValues[6]);
-      editor.putInt(getString(R.string.dPercent), buttonValues[7]);
-      
-      editor.commit();    
-    }
+       setStoredPreferenceValues();
+    }	
     	    
 	public void clickHandler(View view) //Dice
     {		
@@ -388,38 +491,83 @@ public class MainWindow extends Activity
     	result = -1;
     	String type = "";
     	
-    	switch (view.getId())
+    	if(buttonsOn)
     	{
-    		case R.id.d20:
-    			result = gen.nextInt(buttonValues[0])+1;
-    			type = "d20";
-    			break;
-    		case R.id.d6:
-    			result = gen.nextInt(buttonValues[3])+1;
-    			type = "d6";
-    			break;
-			case R.id.d4:
-    			result = gen.nextInt(buttonValues[2])+1;
-    			type = "d4";
-    			break;
-    		case R.id.d8:
-    			result = gen.nextInt(buttonValues[4])+1;
-    			type = "d8";
-    			break;
-    		case R.id.d10:
-    			result = gen.nextInt(buttonValues[5])+1;
-    			type = "d10";
-    			break;
-    		case R.id.d12:
-    			result = gen.nextInt(buttonValues[6])+1;
-    			type = "d12";
-    			break;
-    		case R.id.dPercent:
-    			result = gen.nextInt(buttonValues[7])+1;
-    			type = "d100";
-    			break;
+	    	switch (view.getId())
+	    	{
+	    		case R.id.d20:
+	    			result = gen.nextInt(buttonValues[0])+1;
+	    			type = buttons[0].getText().toString();
+	    			break;
+	    		case R.id.d6:
+	    			result = gen.nextInt(buttonValues[3])+1;
+	    			type = buttons[3].getText().toString();
+	    			break;
+				case R.id.d4:
+	    			result = gen.nextInt(buttonValues[2])+1;
+	    			type = buttons[2].getText().toString();
+	    			break;
+	    		case R.id.d8:
+	    			result = gen.nextInt(buttonValues[4])+1;
+	    			type = buttons[4].getText().toString();
+	    			break;
+	    		case R.id.d10:
+	    			result = gen.nextInt(buttonValues[5])+1;
+	    			type = buttons[5].getText().toString();
+	    			break;
+	    		case R.id.d12:
+	    			result = gen.nextInt(buttonValues[6])+1;
+	    			type = buttons[6].getText().toString();
+	    			break;
+	    		case R.id.dPercent:
+	    			result = gen.nextInt(buttonValues[7])+1;
+	    			type = buttons[7].getText().toString();
+	    			break;
+	    		case R.id.left_custom_button:
+	    			result = gen.nextInt(buttonValues[1])+1;
+	    			type = buttons[1].getText().toString();
+	    			break;
+	    		case R.id.right_custom_button:
+	    			result = gen.nextInt(buttonValues[8])+1;
+	    			type = buttons[8].getText().toString();
+	    			break;
+	    	}
     	}
     	
+    	else
+    	{
+    		switch (view.getId())
+        	{
+        		case R.id.d20:
+        			result = gen.nextInt(20)+1;
+        			type = "d20";
+        			break;
+        		case R.id.d6:
+        			result = gen.nextInt(6)+1;
+        			type = "d6";
+        			break;
+    			case R.id.d4:
+        			result = gen.nextInt(4)+1;
+        			type = "d4";
+        			break;
+        		case R.id.d8:
+        			result = gen.nextInt(8)+1;
+        			type = "d8";
+        			break;
+        		case R.id.d10:
+        			result = gen.nextInt(10)+1;
+        			type = "d10";
+        			break;
+        		case R.id.d12:
+        			result = gen.nextInt(12)+1;
+        			type = "d12";
+        			break;
+        		case R.id.dPercent:
+        			result = gen.nextInt(100)+1;
+        			type = "d100";
+        			break;
+        	}
+    	}
     	if(result >= 0)
     	{    		
     		rolls.add(type+": "+result);
@@ -437,6 +585,7 @@ public class MainWindow extends Activity
     			rolls = new RotatingQueue(6);
     			break;
     		case R.id.quitbutton:
+    			setStoredPreferenceValues();
     			finish();
     			System.exit(0);
     	}
@@ -480,7 +629,6 @@ public class MainWindow extends Activity
             inflater.inflate(R.menu.menu, menu);
             return true;
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) 
     {

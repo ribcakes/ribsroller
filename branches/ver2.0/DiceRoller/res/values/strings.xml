@@ -39,11 +39,20 @@
 	<string name="quit">Quit</string>
 	<string name="ok">Ok</string>
 	
-	<string name="dialog_on">A dialog will be shown with each roll.</string>
-	<string name="dialog_off">No dialog will be shown.</string>
-	<string name="dialog_title">Dialog Box</string>
-	<string name="checked">Show Dialog</string>
+	<string name="custom_button_one_on">The left custom button will be shown.</string>
+	<string name="custom_button_one_off">The left custom button will not be shown.</string>
+	<string name="custom_button_one_title">Left Custom Button</string>
+	<string name="custom_button_one_checked">lftCstmBttn</string>
+
+	<string name="custom_button_two_on">The right custom button will be shown.</string>
+	<string name="custom_button_two_off">The right custom button will not be shown.</string>
+	<string name="custom_button_two_title">Right Custom Button</string>
+	<string name="custom_button_two_checked">rghtCstmBttn</string>
 	
+	<string name="user_input_buttons">Buttons will be displayed for user input.</string>
+	<string name="user_input_images">Images will be displayed for user input.</string>
+	<string name="user_input_title">User Input</string>
+	<string name="user_input_checked">usrInpt</string>	
 
 	<string name="layout_title">User Input</string>
 	<string name="layout_preference">Show Buttons</string>
