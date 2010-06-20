@@ -6,3 +6,6 @@ Rib's Roller is the first Android app that we have ever coded.  It was meant as 
 
 
 = Details =
+The program has two main options for user input: Images and Buttons
+
+The images are pictures of dice that Rib owns and that he took and edited himself.  
