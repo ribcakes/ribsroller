@@ -64,6 +64,19 @@
 						    > <!-- D20 -->
 						    
 				    	  		<Button
+								  	android:id="@+id/left_custom_button"
+								  	android:layout_width="wrap_content"
+								  	android:layout_height="wrap_content"
+								  	android:onClick="clickHandler"
+									android:minWidth="75dp"
+									android:minHeight="75dp"
+									android:background="@drawable/button_background"
+									android:textColor="@drawable/text_color"
+									android:textSize="18sp"
+									android:layout_marginRight="5dp"
+								  	></Button>
+
+				    	  		<Button
 								  	android:id="@+id/d20"
 								  	android:layout_width="wrap_content"
 								  	android:layout_height="wrap_content"
@@ -74,7 +87,21 @@
 									android:background="@drawable/button_background"
 									android:textColor="@drawable/text_color"
 									android:textSize="18sp"
-								  	></Button>						    
+								  	></Button>				
+								  	
+				    	  		<Button
+								  	android:id="@+id/right_custom_button"
+								  	android:layout_width="wrap_content"
+								  	android:layout_height="wrap_content"
+								  	android:onClick="clickHandler"
+									android:minWidth="75dp"
+									android:minHeight="75dp"
+									android:background="@drawable/button_background"
+									android:textColor="@drawable/text_color"
+									android:textSize="18sp"
+									android:layout_marginLeft="5dp"
+								  	></Button>
+								  			    
 					    </LinearLayout>	
 					    
 					    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
