@@ -287,7 +287,6 @@
 		    	android:layout_height="wrap_content"
 	    		android:onClick="clickListener"
 	    		android:textSize="13sp"
-				android:textColor="@drawable/text_color"
 		    	/>  
 		    	
     	</LinearLayout>         
