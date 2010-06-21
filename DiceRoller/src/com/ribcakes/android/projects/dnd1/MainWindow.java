@@ -675,6 +675,9 @@ public class MainWindow extends Activity
                     Intent i = new Intent(this, Preferences.class);
                     startActivity(i);
                     break;
+            	case R.id.reset:
+            		resetCustomValues();
+            		break;
                     
             }                                                       
             return true;
