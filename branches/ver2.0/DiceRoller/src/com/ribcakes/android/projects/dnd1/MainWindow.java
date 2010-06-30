@@ -276,7 +276,7 @@ public class MainWindow extends Activity
 
 				});
 	
-        Button clearButton = (Button)findViewById(R.id.clearbutton);
+        Button clearButton = (Button)findViewById(R.id.clear_button);
         clearButton.setLongClickable(true);
         clearButton.setOnLongClickListener(
         		new OnLongClickListener() 
@@ -615,12 +615,12 @@ public class MainWindow extends Activity
     {
     	switch(view.getId())
     	{
-    		case R.id.clearbutton:
+    		case R.id.clear_button:
     			for(TextView i : trackers)
     				i.setText("");
     			rolls = new RotatingQueue(6);
     			break;
-    		case R.id.quitbutton:
+    		case R.id.quit_button:
     			setStoredPreferenceValues();
     			finish();
     			System.exit(0);
