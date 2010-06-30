@@ -52,6 +52,8 @@
 	  	android:layout_height="wrap_content"
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d20selector"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
 	  	></ImageView>
 	  	
 	</LinearLayout>	  	
@@ -71,6 +73,8 @@
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d4selector"
 	  	android:paddingRight="5dip"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
   		></ImageView>
   			  	
 	  	<ImageView
@@ -79,6 +83,8 @@
 	  	android:layout_height="wrap_content"
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d6selector"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
   		></ImageView>
   		
   		
@@ -99,6 +105,8 @@
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d8selector"
   		android:paddingRight="5dip"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
   		></ImageView>
   			  	
 	  	<ImageView
@@ -107,6 +115,8 @@
 	  	android:layout_height="wrap_content"
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d10selector"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
 	  	></ImageView>
   		
   		
@@ -127,6 +137,8 @@
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/d12selector"
 	  	android:paddingRight="5dip"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
   		></ImageView>
   			  	
 	  	<ImageView
@@ -135,6 +147,8 @@
 	  	android:layout_height="wrap_content"
 	  	android:onClick="clickHandler"
 	  	android:src="@drawable/dpercent_selector"
+		android:minHeight="75dp"
+		android:minWidth="75dp"
   		></ImageView>
   		
   		
