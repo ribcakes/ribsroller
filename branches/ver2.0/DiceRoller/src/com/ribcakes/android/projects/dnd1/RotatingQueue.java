@@ -134,7 +134,7 @@ public class RotatingQueue
 					break;
 				
 				trackers[i].append("("+counter +")"+queue[tail]+"\n");
-				trackers[i].append("----------------\n");
+				trackers[i].append("----------------------------\n");
 				
 				tail --;
 				tail += this.size;
