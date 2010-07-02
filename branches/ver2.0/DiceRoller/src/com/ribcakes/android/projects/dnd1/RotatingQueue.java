@@ -1,5 +1,8 @@
 package com.ribcakes.android.projects.dnd1;
 
+import android.app.Activity;
+import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -39,6 +42,8 @@ public class RotatingQueue
 	private int length;
 	private int size;
 	
+	private DisplayMetrics metrics;
+	
 	public RotatingQueue(int size)
 	{
 		this.size = size;
@@ -46,6 +51,7 @@ public class RotatingQueue
 		this.head = 0;
 		this.tail = 0;
 		this.length = 0;
+		metrics = null;
 	}
 	
 	public RotatingQueue(int size, String[] log, int head, int tail)
@@ -55,11 +61,17 @@ public class RotatingQueue
 		this.head = head;
 		this.tail = tail;
 		this.length = 0;
+		metrics = null;
 	}
 	
 	public int getHead() 
 	{
 		return head;
+	}
+
+	public void setMetrics(DisplayMetrics metrics) 
+	{
+		this.metrics = metrics;
 	}
 
 	public int getTail() 
@@ -115,6 +127,7 @@ public class RotatingQueue
 
 	public void updateView(TextView[] trackers)
 	{
+        
 		int tail = this.tail - 1;
 		tail += size;
 		tail %= size;
@@ -134,7 +147,23 @@ public class RotatingQueue
 					break;
 				
 				trackers[i].append("("+counter +")"+queue[tail]+"\n");
-				trackers[i].append("----------------------------\n");
+				
+				if(metrics != null)
+				{
+					Log.i("RotatingQueue:updateView()", "window height: "+metrics.heightPixels);
+					Log.i("RotatingQueue:updateView()", "window width: "+metrics.widthPixels);
+					
+					if(metrics.widthPixels > metrics.heightPixels)
+					{
+						if(metrics.widthPixels < 400)
+							trackers[i].append("---------------\n");				
+						else
+							trackers[i].append("----------------------\n");
+					}
+					else
+						trackers[i].append("---------------------------\n");
+
+				}
 				
 				tail --;
 				tail += this.size;
