@@ -41,8 +41,8 @@
 		  	
 		  	android:layout_marginTop="10dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -62,8 +62,8 @@
 		  	
 		  	android:layout_marginTop="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -83,8 +83,8 @@
 		  	
 		  	android:layout_marginTop="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -104,8 +104,8 @@
 		  	
 		  	android:layout_marginLeft="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -125,8 +125,8 @@
 		  	
 		  	android:layout_marginRight="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -146,8 +146,8 @@
 		  	
 		  	android:layout_marginRight="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -167,8 +167,8 @@
 		  	
 		  	android:layout_marginLeft="5dp"
 		  	
-			android:minWidth="75dp"  		
-			android:minHeight="75dp"
+			android:minWidth="130dp"  		
+			android:minHeight="130dp"
 
 			android:textSize="18sp"
 			android:textColor="@drawable/text_color"
@@ -206,8 +206,8 @@
 				 	android:layout_marginRight="3px"
 			 		android:layout_marginTop="3px"
 
-			 		android:minHeight="100dip"		
-					android:minWidth="308dip" 				 		 	
+			 		android:minHeight="175dip"		
+					android:minWidth="470dip" 				 		 	
 
 			 		android:background="#010101"
 					>	 		
@@ -218,13 +218,13 @@
 					 		android:layout_width="wrap_content"
 					 		android:layout_height="wrap_content"
 
-							android:maxHeight="100dip"
-							android:maxWidth="150dip"
-							android:minWidth="150dip"
+							android:maxHeight="175dip"
+							android:maxWidth="235dip"
+							android:minWidth="235dip"
 
 							android:paddingLeft="2dip"
 
-							android:textSize="14sp"
+							android:textSize="24sp"
 							android:lineSpacingExtra="2dip"
 				 		></TextView>
 				
@@ -234,13 +234,13 @@
 					 		android:layout_width="wrap_content"
 					 		android:layout_height="wrap_content"
 
-							android:maxHeight="100dip"
-							android:maxWidth="150dip"
-							android:minWidth="150dip"
+							android:maxHeight="175dip"
+							android:maxWidth="235dip"
+							android:minWidth="235dip"
 
 							android:paddingLeft="2dip"
 
-							android:textSize="14sp"
+							android:textSize="24sp"
 							android:lineSpacingExtra="2dip"
 				 		></TextView>
 				
