@@ -122,7 +122,20 @@ public class MainWindow extends Activity
         
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        rolls.setMetrics(metrics);
+        
+		if(metrics != null)
+		{			
+			if(metrics.widthPixels > metrics.heightPixels)
+			{
+				if(metrics.widthPixels < 400)
+					rolls.setSeperator("---------------\n");				
+				else
+					rolls.setSeperator("----------------------\n");
+			}
+			else
+				rolls.setSeperator("---------------------------\n");
+		}
+		
     }    
     	
 	protected void resetCustomValues() 
