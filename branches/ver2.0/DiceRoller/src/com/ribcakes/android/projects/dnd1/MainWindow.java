@@ -79,6 +79,9 @@ public class MainWindow extends Activity
     {
         super.onCreate(savedInstanceState);
         
+        
+        startActivity(new Intent(this, CreateSet.class));
+        
         buttonValues = new int[9]; //the values of the 9 buttons
         buttons = new Button[9]; // the 9 buttons themselves
         	
