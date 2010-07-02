@@ -39,7 +39,7 @@
   			
   			android:layout_marginLeft="10dp"
   			
-			android:minWidth="240dp"
+			android:minWidth="200dp"
   			> <!-- Button Container -->
 
 		  	<ImageView
@@ -176,64 +176,20 @@
   		
    			android:layout_alignParentRight="true"
   			
-			android:minWidth="240dp"
+			android:minWidth="200dp"
   			> <!-- table container -->  					
-			
-			<LinearLayout  
-				android:id="@+id/clear_quit_block"
-			    android:orientation="horizontal"
-
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-
-				android:layout_alignParentBottom="true"
-				android:layout_centerHorizontal="true"
-				
-				android:layout_marginBottom="5dp"
-
-			    android:gravity="center_horizontal"
-
-			    android:paddingTop="5dip"
-			    > <!-- Button Block -->
-			
-	   	    	<Button
-			    	android:id="@+id/clear_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"			    
-			    	
-			    	android:layout_marginTop="5dp"
-			    	
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/clear"
-	
-		    		android:onClick="clickListener"
-			    ></Button> 
-	
-	   	    	<Button
-			    	android:id="@+id/quit_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-	
-			    	android:layout_marginTop="5dp"
-
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/quit"
-	
-		    		android:onClick="clickListener"
-			    ></Button> 			
-			    
-		    </LinearLayout>
 		    
-   			<TableLayout 			
+   			<TableLayout 
+   				android:id="@+id/table_view"
+   							
 				android:layout_width="wrap_content"
 		 		android:layout_height="wrap_content"
 
 				android:layout_centerHorizontal="true"
-				android:layout_above="@id/clear_quit_block"
+				android:layout_alignParentBottom="true"
+
+				android:layout_marginBottom="3dp"
+				android:layout_marginRight="5dp"
 
 		 		android:layout_gravity="center"
 		 				 	
@@ -294,6 +250,55 @@
 					</LinearLayout>
 	
 			</TableLayout>
+		    	    
+   			<LinearLayout  
+				android:id="@+id/clear_quit_block"
+			    android:orientation="horizontal"
+
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+
+				android:layout_above="@id/table_view"
+				android:layout_centerHorizontal="true"
+				
+				android:layout_marginBottom="3dp"
+
+			    android:gravity="center_horizontal"
+
+			    android:paddingTop="5dip"
+			    > <!-- Button Block -->
+			
+	   	    	<Button
+			    	android:id="@+id/clear_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"			    
+			    	
+			    	android:layout_marginTop="5dp"
+			    	
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/clear"
+	
+		    		android:onClick="clickListener"
+			    ></Button> 
+	
+	   	    	<Button
+			    	android:id="@+id/quit_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+	
+			    	android:layout_marginTop="5dp"
+
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/quit"
+	
+		    		android:onClick="clickListener"
+			    ></Button> 			
+			    
+		    </LinearLayout>
 		    		
   		</RelativeLayout> <!-- table container -->
   		
