@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -117,9 +118,13 @@ public class MainWindow extends Activity
         	rolls = new RotatingQueue(6);
         }
         else
-        	setViews(true);        
+        	setViews(true);     
+        
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        rolls.setMetrics(metrics);
     }    
-    
+    	
 	protected void resetCustomValues() 
 	{
 		if(buttonsOn)
