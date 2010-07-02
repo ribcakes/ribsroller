@@ -37,12 +37,12 @@
   			
   			android:layout_alignParentLeft="true"
   			
-  			android:layout_marginLeft="5dp"  			
+  			android:layout_marginLeft="10dp"
   			
-			android:minWidth="210dp"
+			android:minWidth="240dp"
   			> <!-- Button Container -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d12"
 			  	
 			  	android:layout_width="wrap_content"
@@ -54,17 +54,17 @@
 			  	android:layout_marginTop="5dp"
 			  	android:layout_marginBottom="7dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d12 -->
+				android:src="@drawable/d12selector"
+			></ImageView> <!-- d12 -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d6"
 			  	
 			  	android:layout_width="wrap_content"
@@ -73,17 +73,17 @@
 			  	android:layout_centerHorizontal="true"
 			  	android:layout_above="@id/d12"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d6 -->
+				android:src="@drawable/d6selector"
+			></ImageView> <!-- d6 -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d20"
 			  	
 			  	android:layout_width="wrap_content"
@@ -94,59 +94,17 @@
 			  	
 			  	android:layout_marginBottom="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d20 -->
+				android:src="@drawable/d20selector"
+			></ImageView> <!-- d20 -->
 
-		  	<Button
-			  	android:id="@+id/left_custom_button"
-			  	
-			  	android:layout_width="wrap_content"
-			  	android:layout_height="wrap_content"
-			  	
-			  	android:layout_alignBottom="@id/d20"
-			  	android:layout_toLeftOf="@id/d20"
-			  	
-			  	android:layout_marginRight="5dp"
-			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
-
-				android:textSize="18sp"
-				android:textColor="@drawable/text_color"
-
-			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- left custom -->
-
-		  	<Button
-			  	android:id="@+id/right_custom_button"
-			  	
-			  	android:layout_width="wrap_content"
-			  	android:layout_height="wrap_content"
-			  	
-			  	android:layout_alignBottom="@id/d20"
-			  	android:layout_toRightOf="@id/d20"
-			  	
-			  	android:layout_marginLeft="5dp"
-			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
-
-				android:textSize="18sp"
-				android:textColor="@drawable/text_color"
-
-			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- right custom -->
-
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d8"
 			  	
 			  	android:layout_width="wrap_content"
@@ -157,17 +115,17 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d8 -->
+				android:src="@drawable/d8selector"
+			></ImageView> <!-- d8 -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d4"
 			  	
 			  	android:layout_width="wrap_content"
@@ -178,17 +136,17 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d4 -->
+				android:src="@drawable/d4selector"
+			></ImageView> <!-- d4 -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/d10"
 			  	
 			  	android:layout_width="wrap_content"
@@ -199,17 +157,17 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d10 -->
+				android:src="@drawable/d10selector"
+			></ImageView> <!-- d10 -->
 
-		  	<Button
+		  	<ImageView
 			  	android:id="@+id/dPercent"
 			  	
 			  	android:layout_width="wrap_content"
@@ -220,15 +178,15 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="75dp"  		
+				android:minHeight="75dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
-				android:background="@drawable/button_background"
-			></Button> <!-- d100 -->
+				android:src="@drawable/dpercent_selector"
+			></ImageView> <!-- d100 -->
 
 		</RelativeLayout> <!-- button container -->
   
@@ -239,20 +197,64 @@
   		
    			android:layout_alignParentRight="true"
   			
-			android:minWidth="200dp"
+			android:minWidth="240dp"
   			> <!-- table container -->  					
+			
+			<LinearLayout  
+				android:id="@+id/clear_quit_block"
+			    android:orientation="horizontal"
+
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				
+				android:layout_marginBottom="5dp"
+
+			    android:gravity="center_horizontal"
+
+			    android:paddingTop="5dip"
+			    > <!-- Button Block -->
+			
+	   	    	<Button
+			    	android:id="@+id/clear_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"			    
+			    	
+			    	android:layout_marginTop="5dp"
+			    	
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/clear"
+	
+		    		android:onClick="clickListener"
+			    ></Button> 
+	
+	   	    	<Button
+			    	android:id="@+id/quit_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+	
+			    	android:layout_marginTop="5dp"
+
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/quit"
+	
+		    		android:onClick="clickListener"
+			    ></Button> 			
+			    
+		    </LinearLayout>
 		    
-   			<TableLayout 
-   				android:id="@+id/table_view"
-   							
+   			<TableLayout 			
 				android:layout_width="wrap_content"
 		 		android:layout_height="wrap_content"
 
 				android:layout_centerHorizontal="true"
-				android:layout_alignParentBottom="true"
-
-				android:layout_marginBottom="3dp"
-				android:layout_marginRight="5dp"
+				android:layout_above="@id/clear_quit_block"
 
 		 		android:layout_gravity="center"
 		 				 	
@@ -313,55 +315,6 @@
 					</LinearLayout>
 	
 			</TableLayout>
-		    	    
-   			<LinearLayout  
-				android:id="@+id/clear_quit_block"
-			    android:orientation="horizontal"
-
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-
-				android:layout_above="@id/table_view"
-				android:layout_centerHorizontal="true"
-				
-				android:layout_marginBottom="3dp"
-
-			    android:gravity="center_horizontal"
-
-			    android:paddingTop="5dip"
-			    > <!-- Button Block -->
-			
-	   	    	<Button
-			    	android:id="@+id/clear_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"			    
-			    	
-			    	android:layout_marginTop="5dp"
-			    	
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/clear"
-	
-		    		android:onClick="clickListener"
-			    ></Button> 
-	
-	   	    	<Button
-			    	android:id="@+id/quit_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-	
-			    	android:layout_marginTop="5dp"
-
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/quit"
-	
-		    		android:onClick="clickListener"
-			    ></Button> 			
-			    
-		    </LinearLayout>
 		    		
   		</RelativeLayout> <!-- table container -->
   		
