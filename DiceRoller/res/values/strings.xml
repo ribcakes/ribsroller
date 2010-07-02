@@ -61,5 +61,10 @@
 	<string name="change_value_dialog_title">Change Value</string>
 	<string name="plus">+</string>
 	<string name="minus">-</string>
+	
+	<string name="title_hint"><i>Name</i></string>
+	<string name="new_die_text">Add a Die</string>
+	<string name="plus_one">+1</string>
+	<string name="minus_one">-1</string>
 
 </resources>
