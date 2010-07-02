@@ -1,9 +1,5 @@
 package com.ribcakes.android.projects.dnd1;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -42,7 +38,7 @@ public class RotatingQueue
 	private int length;
 	private int size;
 	
-	private DisplayMetrics metrics;
+	private String seperator;
 	
 	public RotatingQueue(int size)
 	{
@@ -51,7 +47,7 @@ public class RotatingQueue
 		this.head = 0;
 		this.tail = 0;
 		this.length = 0;
-		metrics = null;
+		seperator = "";
 	}
 	
 	public RotatingQueue(int size, String[] log, int head, int tail)
@@ -61,7 +57,7 @@ public class RotatingQueue
 		this.head = head;
 		this.tail = tail;
 		this.length = 0;
-		metrics = null;
+		seperator = "";
 	}
 	
 	public int getHead() 
@@ -69,9 +65,12 @@ public class RotatingQueue
 		return head;
 	}
 
-	public void setMetrics(DisplayMetrics metrics) 
+	/**
+	 * @param seperator the seperator to set
+	 */
+	public void setSeperator(String seperator) 
 	{
-		this.metrics = metrics;
+		this.seperator = seperator;
 	}
 
 	public int getTail() 
@@ -127,7 +126,8 @@ public class RotatingQueue
 
 	public void updateView(TextView[] trackers)
 	{
-        
+        String seperator = this.seperator;
+		
 		int tail = this.tail - 1;
 		tail += size;
 		tail %= size;
@@ -148,22 +148,7 @@ public class RotatingQueue
 				
 				trackers[i].append("("+counter +")"+queue[tail]+"\n");
 				
-				if(metrics != null)
-				{
-					Log.i("RotatingQueue:updateView()", "window height: "+metrics.heightPixels);
-					Log.i("RotatingQueue:updateView()", "window width: "+metrics.widthPixels);
-					
-					if(metrics.widthPixels > metrics.heightPixels)
-					{
-						if(metrics.widthPixels < 400)
-							trackers[i].append("---------------\n");				
-						else
-							trackers[i].append("----------------------\n");
-					}
-					else
-						trackers[i].append("---------------------------\n");
-
-				}
+				trackers[i].append(seperator);
 				
 				tail --;
 				tail += this.size;
@@ -179,12 +164,12 @@ public class RotatingQueue
 		return queue;
 	}
 	
-	public void printContents()
-	{
-		for(String i: queue)
-		{
-			Log.i("RotatingQueue:printContents()", "value: "+i);
-		}
-	}
+//	public void printContents()
+//	{
+//		for(String i: queue)
+//		{
+//			Log.i("RotatingQueue:printContents()", "value: "+i);
+//		}
+//	}
 
 }
