@@ -37,7 +37,7 @@
   			
   			android:layout_alignParentLeft="true"
   			  			
-			android:minWidth="300dp"
+			android:minWidth="415dp"
   			> <!-- Button Container -->
 
 		  	<Button
@@ -52,10 +52,10 @@
 			  	android:layout_marginTop="5dp"
 			  	android:layout_marginBottom="7dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -71,10 +71,10 @@
 			  	android:layout_centerHorizontal="true"
 			  	android:layout_above="@id/d12"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -92,10 +92,10 @@
 			  	
 			  	android:layout_marginBottom="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -113,10 +113,10 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -134,10 +134,10 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -155,10 +155,10 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -176,10 +176,10 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -197,10 +197,10 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -218,10 +218,10 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="85dp"  		
-				android:minHeight="65dp"
+				android:minWidth="130dp"  		
+				android:minHeight="90dp"
 
-				android:textSize="18sp"
+				android:textSize="22sp"
 				android:textColor="@drawable/text_color"
 
 			  	android:onClick="clickHandler"
@@ -270,8 +270,8 @@
 					 	android:layout_marginRight="3px"
 				 		android:layout_marginTop="3px"
 
-				 		android:minHeight="100dip"		
-						android:minWidth="280dip" 				 		 	
+				 		android:minHeight="143dip"		
+						android:minWidth="380dip" 				 		 	
 
 				 		android:background="#010101"
 						>	 		
@@ -282,13 +282,13 @@
 						 		android:layout_width="wrap_content"
 						 		android:layout_height="wrap_content"
 
-								android:maxHeight="100dip"
-								android:maxWidth="145dip"
-								android:minWidth="145dip"
+								android:maxHeight="143dip"
+								android:maxWidth="190dip"
+								android:minWidth="190dip"
 
 								android:paddingLeft="2dip"
 
-								android:textSize="14sp"
+								android:textSize="20sp"
 								android:lineSpacingExtra="2dip"
 					 		></TextView>
 					
@@ -298,13 +298,13 @@
 						 		android:layout_width="wrap_content"
 						 		android:layout_height="wrap_content"
 
-								android:maxHeight="100dip"
-								android:maxWidth="145dip"
-								android:minWidth="145dip"
+								android:maxHeight="143dip"
+								android:maxWidth="190dip"
+								android:minWidth="190dip"
 
 								android:paddingLeft="2dip"
 
-								android:textSize="14sp"
+								android:textSize="20sp"
 								android:lineSpacingExtra="2dip"
 					 		></TextView>
 					
@@ -339,7 +339,7 @@
 			    	
 			    	android:minWidth="65dp"
 	
-			    	android:text="mdpi"
+			    	android:text="@string/clear"
 	
 		    		android:onClick="clickListener"
 			    ></Button> 
