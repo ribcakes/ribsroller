@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+	    android:background="#6A8048"
+		>
+		
+		<EditText
+			android:id="@+id/title"
+			
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentTop="true"
+			
+			android:singleLine="true"
+			android:hint="@string/title_hint"
+		></EditText>
+		
+		
+		<LinearLayout
+			android:id="@+id/create_die_set_button_panel"
+		
+			android:orientation="horizontal"
+			
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentBottom="true"
+			>
+			
+			<Button
+				android:id="@+id/new_die"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				
+				android:text="@string/new_die_text"
+				android:textSize="16sp"
+			></Button>
+			
+			<Button
+				android:id="@+id/new_die"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"			
+				
+				android:text="@string/plus_one"
+				android:textSize="16sp"
+			></Button>
+	
+			<Button
+				android:id="@+id/new_die"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"			
+				
+				android:text="@string/minus_one"
+				android:textSize="16sp"
+			></Button>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/create_die_set_center_box"
+		
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_below="@id/title"
+			android:layout_above="@id/create_die_set_button_panel"
+			
+			android:layout_margin="3dp"
+			
+			android:minHeight="325dp"
+			
+			android:background="@drawable/background_pane"
+			>
+			
+			
+			<ScrollView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				
+				>
+			
+				<LinearLayout
+					android:id="@+id/create_die_set_content"
+					
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					
+					android:isScrollContainer="true"
+					>
+					
+				</LinearLayout>
+			
+			</ScrollView>
+			
+			
+		</LinearLayout> <!-- content pane -->
+		
+	</RelativeLayout>
