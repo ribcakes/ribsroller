@@ -36,10 +36,8 @@
   			android:layout_height="fill_parent"
   			
   			android:layout_alignParentLeft="true"
-  			
-  			android:layout_marginLeft="5dp"  			
-  			
-			android:minWidth="210dp"
+  			  			
+			android:minWidth="230dp"
   			> <!-- Button Container -->
 
 		  	<Button
@@ -54,8 +52,8 @@
 			  	android:layout_marginTop="5dp"
 			  	android:layout_marginBottom="7dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -73,8 +71,8 @@
 			  	android:layout_centerHorizontal="true"
 			  	android:layout_above="@id/d12"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -94,8 +92,8 @@
 			  	
 			  	android:layout_marginBottom="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -115,8 +113,8 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -136,8 +134,8 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -157,8 +155,8 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -178,8 +176,8 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -199,8 +197,8 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -220,8 +218,8 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="65dp"  		
-				android:minHeight="60dp"
+				android:minWidth="70dp"  		
+				android:minHeight="65dp"
 
 				android:textSize="18sp"
 				android:textColor="@drawable/text_color"
@@ -239,12 +237,12 @@
   		
    			android:layout_alignParentRight="true"
   			
-			android:minWidth="200dp"
+			android:minWidth="240dp"
   			> <!-- table container -->  					
 		    
-   			<TableLayout 
-   				android:id="@+id/table_view"
-   							
+   			<TableLayout 	
+   				android:id="@+id/table_layout"
+   						
 				android:layout_width="wrap_content"
 		 		android:layout_height="wrap_content"
 
@@ -273,7 +271,7 @@
 				 		android:layout_marginTop="3px"
 
 				 		android:minHeight="100dip"		
-						android:minWidth="200dip" 				 		 	
+						android:minWidth="240dip" 				 		 	
 
 				 		android:background="#010101"
 						>	 		
@@ -285,8 +283,8 @@
 						 		android:layout_height="wrap_content"
 
 								android:maxHeight="100dip"
-								android:maxWidth="100dip"
-								android:minWidth="100dip"
+								android:maxWidth="120dip"
+								android:minWidth="120dip"
 
 								android:paddingLeft="2dip"
 
@@ -301,8 +299,8 @@
 						 		android:layout_height="wrap_content"
 
 								android:maxHeight="100dip"
-								android:maxWidth="100dip"
-								android:minWidth="100dip"
+								android:maxWidth="120dip"
+								android:minWidth="120dip"
 
 								android:paddingLeft="2dip"
 
@@ -313,18 +311,18 @@
 					</LinearLayout>
 	
 			</TableLayout>
-		    	    
-   			<LinearLayout  
+								
+			<LinearLayout  
 				android:id="@+id/clear_quit_block"
 			    android:orientation="horizontal"
 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 
-				android:layout_above="@id/table_view"
+				android:layout_above="@id/table_layout"
 				android:layout_centerHorizontal="true"
 				
-				android:layout_marginBottom="3dp"
+				android:layout_marginBottom="5dp"
 
 			    android:gravity="center_horizontal"
 
@@ -341,7 +339,7 @@
 			    	
 			    	android:minWidth="65dp"
 	
-			    	android:text="@string/clear"
+			    	android:text="normal"
 	
 		    		android:onClick="clickListener"
 			    ></Button> 
@@ -362,6 +360,7 @@
 			    ></Button> 			
 			    
 		    </LinearLayout>
+			
 		    		
   		</RelativeLayout> <!-- table container -->
   		
