@@ -37,7 +37,7 @@
   			
   			android:layout_alignParentLeft="true"
   			  			
-			android:minWidth="230dp"
+			android:minWidth="280dp"
   			> <!-- Button Container -->
 
 		  	<Button
@@ -52,7 +52,7 @@
 			  	android:layout_marginTop="5dp"
 			  	android:layout_marginBottom="7dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -71,7 +71,7 @@
 			  	android:layout_centerHorizontal="true"
 			  	android:layout_above="@id/d12"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -92,7 +92,7 @@
 			  	
 			  	android:layout_marginBottom="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -113,7 +113,7 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -134,7 +134,7 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -155,7 +155,7 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -176,7 +176,7 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -197,7 +197,7 @@
 			  	
 			  	android:layout_marginRight="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -218,7 +218,7 @@
 			  	
 			  	android:layout_marginLeft="5dp"
 			  	
-				android:minWidth="70dp"  		
+				android:minWidth="85dp"  		
 				android:minHeight="65dp"
 
 				android:textSize="18sp"
@@ -339,7 +339,7 @@
 			    	
 			    	android:minWidth="65dp"
 	
-			    	android:text="hdpi"
+			    	android:text="@string/clear"
 	
 		    		android:onClick="clickListener"
 			    ></Button> 
