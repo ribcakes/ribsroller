@@ -339,7 +339,7 @@
 			    	
 			    	android:minWidth="65dp"
 	
-			    	android:text="large"
+			    	android:text="mdpi"
 	
 		    		android:onClick="clickListener"
 			    ></Button> 
