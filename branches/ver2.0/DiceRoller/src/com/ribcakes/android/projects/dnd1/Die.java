@@ -14,7 +14,7 @@ public class Die implements Comparable<Die>
 	}
 	
 	
-	public Die(int mValue, int mCoefficient) 
+	public Die(int mCoefficient, int mValue) 
 	{
 		this.mValue = mValue;
 		this.mCoefficient = mCoefficient;
@@ -60,5 +60,10 @@ public class Die implements Comparable<Die>
 			return 1;
 		else
 			return -1;
+	}
+	
+	public String toString()
+	{
+		return this.mCoefficient+"d"+this.mValue;
 	}
 }
