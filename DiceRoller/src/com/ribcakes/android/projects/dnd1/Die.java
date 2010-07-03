@@ -52,7 +52,6 @@ public class Die implements Comparable<Die>
 		this.mCoefficient = mCoefficient;
 	}
 
-	@Override
 	public int compareTo(Die another) 
 	{
 		if(this.mValue == another.getValue())
