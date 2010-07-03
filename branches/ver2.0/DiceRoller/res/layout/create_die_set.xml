@@ -82,24 +82,13 @@
 			>
 			
 			
-			<ScrollView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
+			<GridView
+				android:id="@+id/create_die_set_content"
 				
-				>
-			
-				<LinearLayout
-					android:id="@+id/create_die_set_content"
-					
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					
-					android:isScrollContainer="true"
-					>
-					
-				</LinearLayout>
-			
-			</ScrollView>
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				
+			></GridView>
 			
 			
 		</LinearLayout> <!-- content pane -->
