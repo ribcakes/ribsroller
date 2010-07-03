@@ -27,6 +27,8 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			
+			android:layout_marginTop="3dp"
+			
 			android:layout_alignParentBottom="true"
 			>
 			
@@ -39,10 +41,12 @@
 				
 				android:text="@string/new_die_text"
 				android:textSize="16sp"
+				
+				android:onClick="onClick"
 			></Button>
 			
 			<Button
-				android:id="@+id/new_die"
+				android:id="@+id/plus_one"
 				
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -50,10 +54,12 @@
 				
 				android:text="@string/plus_one"
 				android:textSize="16sp"
+				
+				android:onClick="onClick"
 			></Button>
 	
 			<Button
-				android:id="@+id/new_die"
+				android:id="@+id/minus_one"
 				
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -61,6 +67,8 @@
 				
 				android:text="@string/minus_one"
 				android:textSize="16sp"
+				
+				android:onClick="onClick"
 			></Button>
 			
 		</LinearLayout>
@@ -73,23 +81,27 @@
 			
 			android:layout_below="@id/title"
 			android:layout_above="@id/create_die_set_button_panel"
-			
-			android:layout_margin="3dp"
-			
+						
 			android:minHeight="325dp"
 			
 			android:background="@drawable/background_pane"
 			>
 			
-			
 			<GridView
 				android:id="@+id/create_die_set_content"
 				
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				
-			></GridView>
-			
+			    android:layout_width="fill_parent" 
+			    android:layout_height="fill_parent"
+
+			    android:columnWidth="80dp"
+			    android:numColumns="3"
+
+			    android:verticalSpacing="5dp"
+			    android:horizontalSpacing="7dp"
+
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+			></GridView>			
 			
 		</LinearLayout> <!-- content pane -->
 		
