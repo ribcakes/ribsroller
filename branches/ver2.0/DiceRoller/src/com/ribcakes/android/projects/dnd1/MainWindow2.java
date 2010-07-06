@@ -102,7 +102,7 @@ public class MainWindow2 extends Activity
 		
 		dieLibrary = (GridView)findViewById(R.id.die_library);
 
-		dieAdapter = new DieAdapter(this);
+		dieAdapter = new DieAdapter();
 		
 		dieLibrary.setAdapter(dieAdapter);
 		
@@ -396,23 +396,18 @@ public class MainWindow2 extends Activity
 	}
 
 
-
-
 	public class DieAdapter extends BaseAdapter 
 	{
-	    private Context mContext;
 	    private ArrayList<DieSet> dice;
 	    
-	    public DieAdapter(Context c)
+	    public DieAdapter()
 	    {
-	        mContext = c;
 	        dice = new ArrayList<DieSet>();
 	    }
 
 		@SuppressWarnings("unchecked")
-		public DieAdapter(Context c, ArrayList<DieSet> dice)
+		public DieAdapter(ArrayList<DieSet> dice)
 	    {
-	        mContext = c;
 	        this.dice = (ArrayList<DieSet>) dice.clone();
 		}
 
@@ -475,23 +470,20 @@ public class MainWindow2 extends Activity
 	    // create a new ImageView for each item referenced by the Adapter
 	    public View getView(final int position, View convertView, ViewGroup parent)
 	    {
-	        TextView dieView;
+	        View dieView;
 	        if (convertView == null) 
 	        {  // if it's not recycled, initialize some attributes
-	            dieView = new TextView(mContext);
-	            dieView.setLayoutParams(new GridView.LayoutParams(90, 50));
-	            dieView.setBackgroundResource(R.drawable.button_background);
-	            dieView.setTextSize(13);
-	            dieView.setTextColor(Color.BLACK);
-	            dieView.setGravity(Gravity.CENTER);
-	                        
+
+	            LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	            dieView = inflator.inflate(R.layout.die_library_item, null);
+             
 	        }
 	        else 
 	        {
 	            dieView = (TextView) convertView;
 	        }
 
-	        dieView.setText(dice.get(position).toString());
+	        ((TextView)dieView.findViewById(R.id.die_library_item_text)).setText(dice.get(position).toString());	        
 	        return dieView;
 	    }
 	}
