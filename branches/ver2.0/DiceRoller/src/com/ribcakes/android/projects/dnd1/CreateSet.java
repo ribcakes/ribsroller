@@ -8,17 +8,21 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -30,21 +34,46 @@ public class CreateSet extends Activity
 	private static final int EDIT_DIE = 1;
 	
 	private GridView content;
+	private TextView modifierView;
+	
 	private DieAdapter adapter;
 	private Die currentEdit;
+	
+	private int modifier;
 	
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_die_set);
 		
+		setResult(RESULT_CANCELED);
+		
+		Bundle retained = (Bundle) getLastNonConfigurationInstance();	
+		if(retained == null)
+			retained = getIntent().getExtras();
+		
+		if(retained != null)
+		{
+			modifier = retained.getInt("modifier", 0);
+			
+			currentEdit = (Die) ((retained.getParcelable("currentEdit") == null) ? new Die():retained.getParcelable("currentEdit"));
+
+			@SuppressWarnings("unchecked")
+			ArrayList<Die> dice = (ArrayList<Die>) ((retained.getParcelableArrayList("currentDieSet") == null) ? new ArrayList<Die>():retained.getParcelableArrayList("currentDieSet"));
+			
+			adapter = new DieAdapter(this, dice);
+		}
+		else
+		{
+			modifier = 0;
+			currentEdit = new Die();
+			adapter = new DieAdapter(this);				
+		}
+				
 		content = (GridView)findViewById(R.id.create_die_set_content);
-		adapter = new DieAdapter(this);				
 		content.setAdapter(adapter);
-		
-		currentEdit = new Die();
-		
-        content.setOnItemClickListener(
+
+		content.setOnItemClickListener(
         		new OnItemClickListener() 
         		{
         			public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
@@ -67,6 +96,20 @@ public class CreateSet extends Activity
         			
 				});
 
+        modifierView = (TextView)findViewById(R.id.modifier);
+        updateModifierView();
+        
+        modifierView.setOnLongClickListener(
+        		new OnLongClickListener()
+        		{
+					
+					public boolean onLongClick(View v) 
+					{
+						modifier = 0;
+						updateModifierView();
+						return true;
+					}
+				});
 	}
 	
 	public void onClick(View v)
@@ -76,19 +119,106 @@ public class CreateSet extends Activity
 			case R.id.new_die:
 				showDialog(NEW_DIE);
 				break;
-			
+			case R.id.save:		
+				if(adapter.getDice().size() > 0)
+				{
+					Intent i = new Intent();
+					i.putExtra("dieSetParcel", new DieSet(((EditText)findViewById(R.id.title)).getText().toString(),adapter.getDice(), modifier));
+					setResult(RESULT_OK, i);
+				}
+				else
+					Log.i("CreateSet:onClick()", "null set");
+				finish();
+				break;
+				
+			case R.id.plus_one:
+				modifier ++;
+				updateModifierView();
+				break;
+				
+			case R.id.minus_one:
+				modifier --;
+				updateModifierView();
+				break;
+				
 		}
 		content.invalidateViews();
 	}
 	
-	
-	
+	private void updateModifierView() 
+	{
+		if(modifier >= 0)
+			modifierView.setText("+"+modifier);
+		else
+			modifierView.setText(""+modifier);
+	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) 
 	{
 		LayoutInflater factory = LayoutInflater.from(this);
 	    final View dieDialogLayout = factory.inflate(R.layout.die_dialog, null);
+
+	    final EditText coefficient = (EditText)dieDialogLayout.findViewById(R.id.coefficient);
+	    final EditText value = (EditText)dieDialogLayout.findViewById(R.id.value);
+	    
+	    ((Button)dieDialogLayout.findViewById(R.id.coefficient_plus)).setOnClickListener(
+	    		new OnClickListener() 
+	    		{
+					
+					public void onClick(View v) 
+					{
+						int temp = Integer.parseInt(coefficient.getText().toString());
+						temp ++;
+						coefficient.setText(temp+"");
+					}
+				});
+
+	    ((Button)dieDialogLayout.findViewById(R.id.coefficient_minus)).setOnClickListener(
+	    		new OnClickListener() 
+	    		{
+					
+					public void onClick(View v) 
+					{
+						int temp = Integer.parseInt(coefficient.getText().toString());
+						
+						if(temp > 1)
+						{
+							temp --;
+							coefficient.setText(temp+"");
+						}
+					}
+				});
+	    
+	    
+	    ((Button)dieDialogLayout.findViewById(R.id.value_plus)).setOnClickListener(
+	    		new OnClickListener() 
+	    		{
+					
+					public void onClick(View v) 
+					{
+						int temp = Integer.parseInt(value.getText().toString());
+						temp ++;
+						value.setText(temp+"");
+					}
+				});
+
+	    ((Button)dieDialogLayout.findViewById(R.id.value_minus)).setOnClickListener(
+	    		new OnClickListener() 
+	    		{
+					
+					public void onClick(View v) 
+					{
+						int temp = Integer.parseInt(value.getText().toString());
+						
+						if(temp > 2)
+						{
+							temp --;
+							value.setText(temp+"");
+						}
+					}
+				});
+	    
 	    AlertDialog dieDialog = new AlertDialog.Builder(this).create();
 	    
 	    switch(id)
@@ -160,10 +290,6 @@ public class CreateSet extends Activity
 		
 		return dieDialog;
 	}
-	
-	
-
-
 
 	protected void onPrepareDialog(int id, Dialog dialog)
 	{
@@ -184,6 +310,18 @@ public class CreateSet extends Activity
 	}
 
 
+	@Override
+	public Object onRetainNonConfigurationInstance()
+	{
+		Bundle retain = new Bundle();
+		retain.putInt("modifier", modifier);
+		retain.putParcelable("currentEdit", currentEdit);		
+		retain.putParcelableArrayList("currentDieSet", adapter.getDice());
+		
+		return retain;
+	}
+
+
 
 
 
@@ -197,17 +335,27 @@ public class CreateSet extends Activity
 	        mContext = c;
 	        dice = new ArrayList<Die>();
 	    }
+	    
+	    @SuppressWarnings("unchecked")
+		public DieAdapter(Context c, ArrayList<Die> dice)
+	    {
+	        mContext = c;
+	        this.dice = (ArrayList<Die>) dice.clone();
+		}
+
+		public ArrayList<Die> getDice()
+	    {
+	    	return this.dice;
+	    }
 
 	    public void remove(int position) 
 	    {
 	    	dice.remove(position);
-			Log.i("CreateSet:remove()", "position: "+position);
 		}
 	    
 	    public void add(Die d)
 	    {
 	    	dice.add(d);
-			Log.i("CreateSet:add()", "new die: "+d);
 	    }
 
 		public int getCount() 

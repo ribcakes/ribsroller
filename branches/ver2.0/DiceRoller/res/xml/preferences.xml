@@ -24,35 +24,21 @@
  -->
 
 <PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-		
-        <CheckBoxPreference
-	        android:id="@+id/user_input"
-	        android:summaryOn="@string/user_input_buttons"
-	        android:summaryOff="@string/user_input_images"
-	        android:title="@string/user_input_title"
-	        android:key="@string/user_input_checked"
-	        android:defaultValue="true"
-        ></CheckBoxPreference>
-		
-        <CheckBoxPreference android:disableDependentsState="true"
-	        android:id="@+id/custom_button_one_check"
-	        android:summaryOn="@string/custom_button_one_on"
-	        android:summaryOff="@string/custom_button_one_off"
-	        android:title="@string/custom_button_one_title"
-	        android:key="@string/custom_button_one_checked"
-	        android:defaultValue="false"
-	        android:dependency="@string/user_input_checked"
-        ></CheckBoxPreference>
+	xmlns:android="http://schemas.android.com/apk/res/android">
+  		
+        <ListPreference 
+            android:key="@string/max_retained" 
+            
+            android:dialogTitle="@string/max_retained_title" 
+            android:title="@string/max_retained_title" 
+            
+            android:summary="@string/max_retained_message" 
+            
+            android:entries="@array/Options"
+            android:entryValues="@array/OptionValues"
+            
+            android:defaultValue="12"
+		></ListPreference>
 
-        <CheckBoxPreference android:disableDependentsState="true"
-	        android:id="@+id/custom_button_two_check"
-	        android:summaryOn="@string/custom_button_two_on"
-	        android:summaryOff="@string/custom_button_two_off"
-	        android:title="@string/custom_button_two_title"
-	        android:key="@string/custom_button_two_checked"
-	        android:defaultValue="false"
-	        android:dependency="@string/user_input_checked"
-        ></CheckBoxPreference>
-			
+
 </PreferenceScreen>
