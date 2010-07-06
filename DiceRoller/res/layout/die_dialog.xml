@@ -14,49 +14,142 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     
-    android:orientation="horizontal"
-    android:gravity="center_horizontal"   
     >
+    	
+	<TextView
+		android:id="@+id/new_die_hint"
+		
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"	
+		
+		android:layout_centerHorizontal="true"
+		
+		android:text="@string/new_die_hint"
+		android:textSize="12sp"
+	></TextView>
+    	
+	<TextView
+		android:id="@+id/d"
+		
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/new_die_hint"
+		
+		android:layout_margin="3dp"
+		
+		android:gravity="center"
+		
+		android:text="@string/d"
+		android:textSize="24sp"
+	></TextView>  
             
     <EditText
         android:id="@+id/coefficient"
         
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        
+        android:layout_toLeftOf="@id/d"
+		android:layout_below="@id/new_die_hint"
+        
         android:layout_marginRight="5dp"	
         
+        android:minWidth="85dp"
+        
         android:scrollHorizontally="true"
-        android:gravity="fill_horizontal"         
+        android:gravity="center"         
 		
 		android:inputType="number"
 	></EditText>	
-	
-	<TextView
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		
-		android:layout_marginLeft="3dp"
-		android:layout_marginRight="3dp"
-		
-		android:text="@string/d"
-		android:textSize="16sp"
-	></TextView>
 
     <EditText
         android:id="@+id/value"
         
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginRight="5dp"	
+       
+        android:layout_toRightOf="@id/d"
+		android:layout_below="@id/new_die_hint"
+
+        android:layout_marginLeft="5dp"	
+        
+        android:minWidth="85dp"
         
         android:scrollHorizontally="true"
-        android:gravity="fill_horizontal"         
+        android:gravity="center"         
 		
 		android:inputType="number"
 	></EditText>		
+	
+	<Button
+		android:id="@+id/coefficient_plus"
+	        
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+		android:layout_below="@id/coefficient"
+		android:layout_alignLeft="@id/coefficient"
+		
+		android:minWidth="40dp"
         
-</LinearLayout>
+        android:text="@string/plus"
+	
+		android:onClick="onClick"
+	></Button>
+	
+	<Button
+		android:id="@+id/coefficient_minus"
+	        
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+		android:layout_below="@id/coefficient"
+		android:layout_alignRight="@id/coefficient"
+		
+		android:minWidth="40dp"
+        
+        android:text="@string/minus"
+	
+		android:onClick="onClick"
+	></Button>
+
+
+	<Button
+		android:id="@+id/value_plus"
+	        
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+		android:layout_below="@id/value"
+		android:layout_alignLeft="@id/value"
+		
+		android:minWidth="40dp"
+        
+        android:text="@string/plus"
+	
+		android:onClick="onClick"
+	></Button>
+	
+	<Button
+		android:id="@+id/value_minus"
+	        
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+		android:layout_below="@id/value"
+		android:layout_alignRight="@id/value"
+		
+		android:minWidth="40dp"
+        
+        android:text="@string/minus"
+	
+		android:onClick="onClick"
+	></Button>
+        
+</RelativeLayout>

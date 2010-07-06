@@ -24,50 +24,34 @@
  -->
 
 <resources>
-    <string name="hello">Roll the Dice!</string>
     <string name="app_name">Rib\'s Roller</string>
-	<string name="d20">d20</string>
-	<string name="d4">d4</string>
-	<string name="d6">d6</string>
-	<string name="d8">d8</string>
-	<string name="d10">d10</string>
-	<string name="d12">d12</string>
-	<string name="dPercent">d100</string>	
-	
-	
+
+	<!-- Main Window Strings -->
 	<string name="clear">Clear</string>
 	<string name="quit">Quit</string>
 	<string name="ok">Ok</string>
+	<string name="empty_log">Log</string>
 	
-	<string name="custom_button_one_on">The left custom button will be shown.</string>
-	<string name="custom_button_one_off">The left custom button will not be shown.</string>
-	<string name="custom_button_one_title">Left Custom Button</string>
-	<string name="custom_button_one_checked">lftCstmBttn</string>
-
-	<string name="custom_button_two_on">The right custom button will be shown.</string>
-	<string name="custom_button_two_off">The right custom button will not be shown.</string>
-	<string name="custom_button_two_title">Right Custom Button</string>
-	<string name="custom_button_two_checked">rghtCstmBttn</string>
-	
-	<string name="user_input_buttons">Buttons will be displayed for user input.</string>
-	<string name="user_input_images">Buttons will not be displayed for user input.</string>
-	<string name="user_input_title">User Input</string>
-	<string name="user_input_checked">usrInpt</string>	
-
-	<string name="layout_title">User Input</string>
-	<string name="layout_preference">Show Buttons</string>
-	<string name="layout_message">Options for user interaction.</string>
-	
-	<string name="change_value_dialog_title">Change Value</string>
-	<string name="plus">+</string>
-	<string name="minus">-</string>
-	
+	<!-- Create a Set Strings -->
 	<string name="title_hint"><i>Name</i></string>
 	<string name="new_die_text">Add a Die</string>
 	<string name="plus_one">+1</string>
 	<string name="minus_one">-1</string>
+	<string name="save">Save</string>
+	<string name="long_click_instruct_text">Long Click to Edit</string>
+	<string name="click_instruct_text">Click to Delete</string>
 
+	<!-- Edit Die Dialog Strings -->
 	<string name="d">d</string>
 	<string name="new_die_dialog_title">New Die</string>
 	<string name="edit_die_dialog_title">Edit Die</string>
+	<string name="new_die_hint">4d6 = 1d6 + 1d6 + 1d6 +1d6</string>
+	<string name="plus">+</string>
+	<string name="minus">-</string>
+	
+	<!-- Preference Strings -->
+	<string name="max_retained">Max Retained</string>
+	<string name="max_retained_title">Log Length</string>
+	<string name="max_retained_message">The maximum number of rolls the log can hold.</string>
+	
 </resources>
