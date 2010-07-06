@@ -25,13 +25,15 @@
 
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<item android:title="Create A Die Set" 
+		android:id="@+id/create_a_set"
+		android:icon="@android:drawable/ic_menu_add"
+	></item>
+	
 	<item android:title="Preferences" 
 		android:id="@+id/preferences"
 		android:icon="@android:drawable/ic_menu_preferences"
 	></item>
 	
-	<item android:title="Reset Custom Values" 
-		android:id="@+id/reset"
-		android:icon="@drawable/refresh"
-	></item>
 </menu>

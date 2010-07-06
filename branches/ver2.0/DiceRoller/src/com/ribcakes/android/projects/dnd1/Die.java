@@ -1,6 +1,9 @@
 package com.ribcakes.android.projects.dnd1;
 
-public class Die implements Comparable<Die> 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Die implements Parcelable, Comparable<Die>
 {
 
 	private int mValue;
@@ -19,6 +22,13 @@ public class Die implements Comparable<Die>
 		this.mValue = mValue;
 		this.mCoefficient = mCoefficient;
 	}
+
+	public Die(Parcel source) 
+	{
+		this.mCoefficient = source.readInt();
+		this.mValue = source.readInt();
+	}
+
 
 	/**
 	 * @return the mValue
@@ -66,4 +76,33 @@ public class Die implements Comparable<Die>
 	{
 		return this.mCoefficient+"d"+this.mValue;
 	}
+
+	public static final Parcelable.Creator<Die> CREATOR 
+			= new Parcelable.Creator<Die>() 
+				{
+		
+					public Die createFromParcel(Parcel source) 
+					{
+						return new Die(source);
+					}
+			
+					public Die[] newArray(int size) 
+					{
+						return new Die[size];
+					}
+					
+				};
+
+	public int describeContents()
+	{
+		return 0;
+	}
+
+
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		dest.writeInt(mCoefficient);
+		dest.writeInt(mValue);
+	}
+
 }
