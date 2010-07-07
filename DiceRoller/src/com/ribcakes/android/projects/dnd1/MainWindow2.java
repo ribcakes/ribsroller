@@ -171,7 +171,7 @@ public class MainWindow2 extends Activity
 		}
 		catch (SQLException e)
 		{
-			Toast.makeText(this, "Database could not be opened/created properly.  Please clear application data to reset Database", Toast.LENGTH_SHORT);
+			Toast.makeText(this, "Database could not be opened/created properly.  Please clear application data to reset Database.", Toast.LENGTH_LONG);
 		}
 		fetchDieSetsFromDatabase();
 	}
@@ -188,7 +188,7 @@ public class MainWindow2 extends Activity
 		//only tries to import dice if the cursor is on the first row; cursor will only be before the first row if there is no content to import
 		if(dieCursor.getCount() > 0)
 		{
-			Log.i(TAG+"fetchDieSetsFromDatabase()", "cursor not null; count: "+dieCursor.getCount());
+			Log.i(TAG+"fetchDieSetsFromDatabase():"+Thread.currentThread().getName(), "cursor not null; count: "+dieCursor.getCount());
 			
 			do
 			{
