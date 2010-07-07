@@ -41,6 +41,7 @@ public class FocusedResult extends LinearLayout
 		
 		adapter.fillGrid(result);
 		
+		grid.setBackgroundResource(R.color.grid_background);
 		grid.invalidateViews();
 	}
 	
