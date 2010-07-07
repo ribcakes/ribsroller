@@ -34,13 +34,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -79,6 +77,9 @@ public class MainWindow2 extends Activity
 	
 	private DieSetDbAdapter mDbHelper;
 	
+	private FocusedResult focusedResultContainer;
+	private RollResult focusedResult;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -100,14 +101,9 @@ public class MainWindow2 extends Activity
         
         maxRetained = Integer.parseInt(preferences.getString(getString(R.string.max_retained), 12+""));
 		
-		dieLibrary = (GridView)findViewById(R.id.die_library);
-
 		dieAdapter = new DieAdapter();
-		
+		dieLibrary = (GridView)findViewById(R.id.die_library);		
 		dieLibrary.setAdapter(dieAdapter);
-		
-		
-	
 		dieLibrary.setOnItemClickListener(
 				new OnItemClickListener() 
 				{
@@ -119,12 +115,9 @@ public class MainWindow2 extends Activity
 					
 				});
 		
-		log = (ListView)findViewById(R.id.log);
-		
 		logAdapter = new LogAdapter<RollResult>(this);
-		
-		log.setAdapter(logAdapter);
-		
+		log = (ListView)findViewById(R.id.log);		
+		log.setAdapter(logAdapter);	
 		log.setOnItemClickListener(
 				new OnItemClickListener()
 				{
@@ -136,6 +129,9 @@ public class MainWindow2 extends Activity
 					}
 					
 				});
+		
+		focusedResultContainer = (FocusedResult)findViewById(R.id.focused_result_container);
+		
 		
 		registerForContextMenu(dieLibrary);
 		
@@ -157,6 +153,10 @@ public class MainWindow2 extends Activity
 		RollResult result = new RollResult(item);
 		logAdapter.add(result);
 		log.setAdapter(logAdapter);
+				
+		focusedResultContainer.setFocused(result);
+		
+		focusedResult = result;
 	}
 
 	
