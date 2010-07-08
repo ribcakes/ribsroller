@@ -60,7 +60,7 @@
 			    android:layout_height="wrap_content"
 
 			    android:columnWidth="60dp"
-			    android:numColumns="auto_fit"
+			    android:numColumns="2"
 
 			    android:verticalSpacing="3dp"
 			    android:horizontalSpacing="5dp"
