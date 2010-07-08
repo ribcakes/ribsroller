@@ -6,38 +6,29 @@
 	    android:background="#6A8048"
 		>	
 		
-		<LinearLayout
-			android:id="@+id/die_library_container"
-		
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
+		<GridView
+			android:id="@+id/die_library"
+			
+		    android:layout_width="wrap_content" 
+		    android:layout_height="fill_parent"
 			
 			android:layout_marginTop="10dp"
 			android:layout_marginLeft="10dp"
 			android:layout_marginRight="250dp"
 			android:layout_marginBottom="10dp"
-									
-			android:background="@drawable/background_pane"
-			>
 			
-			<GridView
-				android:id="@+id/die_library"
-				
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content"
+		    android:columnWidth="80dp"
+		    android:numColumns="auto_fit"
 
-			    android:columnWidth="80dp"
-			    android:numColumns="auto_fit"
+		    android:verticalSpacing="5dp"
+		    android:horizontalSpacing="15dp"
 
-			    android:verticalSpacing="5dp"
-			    android:horizontalSpacing="15dp"
-
-			    android:stretchMode="columnWidth"
-			    android:gravity="center"
-			    
-			></GridView>			
+		    android:stretchMode="columnWidth"
+		    android:gravity="center"
 			
-		</LinearLayout> <!-- content pane -->
+			android:background="@drawable/background_pane"		    
+		></GridView>			
+			
 		
 		<LinearLayout
 			android:id="@+id/log_container"
@@ -146,6 +137,7 @@
 				android:minHeight="75dp"
 		    	
 		    	android:background="@drawable/background_pane"
+		    	android:onClick="clickListener"
 		    	>
 		    
 		    	<com.ribcakes.android.projects.dnd1.FocusedResult
