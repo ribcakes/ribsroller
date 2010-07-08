@@ -3,6 +3,7 @@ package com.ribcakes.android.projects.dnd1;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,8 @@ public class FocusedResult extends LinearLayout
 
 	public void setFocused(RollResult result) 
 	{
+		grid.setVisibility(VISIBLE);
+		
 		adapter.empty();
 		
 		((TextView)findViewById(R.id.focused_result_title)).setText(result.getRolled().toString());
@@ -43,6 +46,16 @@ public class FocusedResult extends LinearLayout
 		
 		grid.setBackgroundResource(R.color.grid_background);
 		grid.invalidateViews();
+	}
+	
+	public void clearFocused()
+	{
+		adapter.empty();
+		grid.setBackgroundResource(R.drawable.transparent00000000);
+		grid.invalidateViews();
+		((TextView)findViewById(R.id.focused_result_result)).setText("");
+		grid.setVisibility(GONE);
+		
 	}
 	
 	
@@ -59,8 +72,14 @@ public class FocusedResult extends LinearLayout
 		{
 			results.clear();
 		}
-
-		public void fillGrid(RollResult result) 
+	    
+	    public void add(String d)
+	    {
+	    	results.add(d);
+	    }
+	    
+	    
+	    public void fillGrid(RollResult result) 
 		{
 			ArrayList<Integer> results = result.getResults();
 			ArrayList<Die> dice = result.getRolled().getDice();
@@ -77,7 +96,7 @@ public class FocusedResult extends LinearLayout
 				{
 					complexResult = "";
 
-					complexResult += results.get(k);
+					complexResult += ("<b>" + results.get(k) + "</b>" );
 					complexResult += "/("+currentDie.getValue()+")";
 					k++;
 					
@@ -86,31 +105,15 @@ public class FocusedResult extends LinearLayout
 			}		
 			
 			int modifier = result.getRolled().getModifier();
-			if(modifier > 1)
-				add("+"+modifier);
-			else
-				add(modifier+"");
+			if(modifier != 0)
+			{
+				if(modifier > 0)
+					add("+"+modifier);
+				else
+					add(modifier+"");
+			}
 		}
 
-		public ArrayList<String> getDice()
-	    {
-	    	return this.results;
-	    }
-
-	    public void remove(int position) 
-	    {
-	    	results.remove(position);
-		}
-	    
-	    public void add(String d)
-	    {
-	    	results.add(d);
-	    }
-	    
-	    public void add(int position, String d)
-	    {
-	    	results.add(position, d);
-	    }
 
 		public int getCount() 
 		{
@@ -120,17 +123,6 @@ public class FocusedResult extends LinearLayout
 	    public String getItem(int position) 
 	    {
 	        return results.get(position);
-	    }
-	    
-	    public void setItem(int position, String d)
-	    {
-	    	remove(position);
-	    	add(position, d);
-	    }
-
-	    public ArrayList<String> getContent()
-	    {
-	    	return this.results;
 	    }
 	    
 	    public long getItemId(int position) 
@@ -152,9 +144,9 @@ public class FocusedResult extends LinearLayout
 	        else 
 	        {
 	            resultView = (TextView) convertView;
-	        }
-
-	        ((TextView)resultView.findViewById(R.id.focused_result_item)).setText(results.get(position));	        
+	        }	     
+	        
+	        ((TextView)resultView.findViewById(R.id.focused_result_item)).setText(Html.fromHtml(results.get(position)));	        
 	        return resultView;
 	    }
 	}
