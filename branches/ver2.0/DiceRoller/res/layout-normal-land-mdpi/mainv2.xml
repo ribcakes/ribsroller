@@ -25,6 +25,9 @@
 
 		    android:stretchMode="columnWidth"
 		    android:gravity="center"
+		    
+		    android:focusable="true"
+		    android:focusableInTouchMode="true"
 			
 			android:background="@drawable/background_pane"		    
 		></GridView>			
