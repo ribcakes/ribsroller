@@ -6,31 +6,42 @@
 	    android:background="#6A8048"
 		>	
 		
-		<GridView
-			android:id="@+id/die_library"
+		<LinearLayout
+			android:id="@+id/die_library_container"
+		
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			
-		    android:layout_width="wrap_content" 
-		    android:layout_height="fill_parent"
-						
 			android:layout_marginTop="92dp"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:layout_marginBottom="210dp"
-			
-		    android:columnWidth="80dp"
-		    android:numColumns="auto_fit"
+									
+			android:background="@drawable/background_pane"
+			>		
+		
+			<GridView
+				android:id="@+id/die_library"
+				
+			    android:layout_width="wrap_content" 
+			    android:layout_height="fill_parent"
+							
 
-		    android:verticalSpacing="5dp"
-		    android:horizontalSpacing="15dp"
-
-		    android:stretchMode="columnWidth"
-		    android:gravity="center"
-		    
-		    android:focusable="true"
-		    android:focusableInTouchMode="true"
+				
+			    android:columnWidth="80dp"
+			    android:numColumns="auto_fit"
+	
+			    android:verticalSpacing="5dp"
+			    android:horizontalSpacing="15dp"
+	
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+			    
+			    android:focusable="true"
+			    android:focusableInTouchMode="true"
+				
+			></GridView>	
 			
-			android:background="@drawable/background_pane"		    
-		></GridView>			
+		</LinearLayout>		
 
 		<LinearLayout  
 			android:id="@+id/clear_quit_block"
@@ -87,10 +98,11 @@
 			android:layout_height="fill_parent"
 			
 			android:layout_above="@id/clear_quit_block"
+			android:layout_below="@id/die_library_container"
 			
-			android:layout_marginTop="250dp"
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
+			android:layout_marginTop="5dp"
 									
 			android:background="@drawable/background_pane"
 			>
