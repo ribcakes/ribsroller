@@ -34,6 +34,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -81,11 +85,55 @@ public class MainWindow extends Activity
 	private FocusedResult focusedResultContainer;
 	private RollResult focusedResult;
 	
+	private SensorManager mSensorManager;
+	private double mLastForce; 
+	
+	private final SensorEventListener mSensorListener = new SensorEventListener()
+	{
+			public void onAccuracyChanged(Sensor sensor, int accuracy) 
+			{
+				
+			}
+
+			public void onSensorChanged(SensorEvent event) 
+			{
+                if(event.sensor.getType() == SensorManager.SENSOR_ACCELEROMETER)
+                {
+               		float[] values = event.values;
+                	
+                        double forceThreshHold = .15f;
+                       
+                        double totalForce = 0.0f;
+                        totalForce += Math.pow(values[SensorManager.DATA_X]/SensorManager.GRAVITY_EARTH, 2.0);
+                        totalForce += Math.pow(values[SensorManager.DATA_Y]/SensorManager.GRAVITY_EARTH, 2.0);
+                        totalForce += Math.pow(values[SensorManager.DATA_Z]/SensorManager.GRAVITY_EARTH, 2.0);
+                        totalForce = Math.sqrt(totalForce);
+                        
+                        double netForce = 0;
+                        netForce = totalForce - mLastForce;
+
+                		Log.i(TAG+"mSensorListener", "net force: "+netForce);
+                       
+                        
+                        if(netForce > forceThreshHold)
+                        {
+                    		Log.i(TAG+"mSensorListener", "sufficient force");
+                    		makeResultFromFocused();
+                        }
+                       
+                        mLastForce = totalForce;
+                }
+			}
+	 
+
+	  };
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mainv2);
+		setContentView(R.layout.main);
 
 		itemGeneratedContext = -1;
 		
@@ -132,48 +180,57 @@ public class MainWindow extends Activity
 				});
 		
 		focusedResultContainer = (FocusedResult)findViewById(R.id.focused_result_container);
-		
+		focusedResult = null;
 		
 		registerForContextMenu(dieLibrary);
 		
+		mLastForce = 0.0f;
 		
-		Runnable imprt = new Runnable()
-		{
-			public void run()
+		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
+
+		
+		Thread thread = 
+			new Thread("Import Database")
 			{
-				createDatabase();
-			}
-		};
-		
-		Thread thread = new Thread(imprt, "Import Database");
+				public void run()
+				{
+					createDatabase();
+				}
+			};
 		thread.start();
+		
+		
 
 		dieLibrary.setFocusable(true);
 		dieLibrary.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
 		Log.i(TAG+"onCreate()", "isFocusable: "+dieLibrary.isFocusable());
 		
-//		LinearLayout dieContainer = (LinearLayout)findViewById(R.id.die_library_container);
-//		dieContainer.setFocusable(true);
-//		dieContainer.setFocusableInTouchMode(true);
-//		dieContainer.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-//		Log.i(TAG+"onCreate()", "isFocusable: "+dieContainer.isFocusable());
-
-		
+	
 		dieLibrary.requestFocus();
-//		dieLibrary.
 	}
 	
 	private void makeResult(DieSet item) 
 	{
-		RollResult result = new RollResult(item);
-		logAdapter.add(result);
-		log.setAdapter(logAdapter);
-				
-		focusedResultContainer.setFocused(result);
-		
-		focusedResult = result;
+		if(item != null)
+		{
+			RollResult result = new RollResult(item);
+			logAdapter.add(result);
+			log.setAdapter(logAdapter);
+					
+			focusedResultContainer.setFocused(result);
+			
+			focusedResult = result;
+		}
 	}
 
+	
+	private void makeResultFromFocused()
+	{
+		if(focusedResult != null)
+			makeResult(focusedResult.getRolled());
+	}
 	
 	
 	private void createDatabase()
@@ -203,8 +260,6 @@ public class MainWindow extends Activity
 		//only tries to import dice if the cursor is on the first row; cursor will only be before the first row if there is no content to import
 		if(dieCursor.getCount() > 0)
 		{
-			Log.i(TAG+"fetchDieSetsFromDatabase():"+Thread.currentThread().getName(), "cursor not null; count: "+dieCursor.getCount());
-			
 			do
 			{
 				helper = new DieSet(dieCursor.getLong(dieCursor.getColumnIndex(DieSetDbAdapter.KEY_ROWID)), dieCursor.getString(dieCursor.getColumnIndex(DieSetDbAdapter.KEY_TITLE)), dieCursor.getString(dieCursor.getColumnIndex(DieSetDbAdapter.KEY_TEXT_TO_PARSE)));
@@ -215,8 +270,6 @@ public class MainWindow extends Activity
 		}
 		else
 		{
-			Log.i(TAG+"fetchDieSetsFromDatabase()", "cursor null");
-
 			dieAdapter.add(new DieSet(new Die(1, 4)));
 			addDieSetToDataBase(new DieSet(new Die(1, 4)));
 			
@@ -282,7 +335,7 @@ public class MainWindow extends Activity
     			System.exit(0);
     			break;
     		case R.id.focused_result_background:
-    			makeResult(focusedResult.getRolled());
+    			makeResultFromFocused();
     			break;
     	}
     }
@@ -405,8 +458,18 @@ public class MainWindow extends Activity
         logAdapter.resize();
         log.setAdapter(logAdapter);
         
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+        
 		super.onResume();
 	}	
+	
+    @Override
+    protected void onPause()
+    {
+            super.onPause();
+           
+            mSensorManager.unregisterListener(mSensorListener);
+    }
 	
 	protected void onStop()
 	{

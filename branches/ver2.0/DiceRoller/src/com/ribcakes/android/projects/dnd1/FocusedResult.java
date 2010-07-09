@@ -133,21 +133,25 @@ public class FocusedResult extends LinearLayout
 	    // create a new ImageView for each item referenced by the Adapter
 	    public View getView(final int position, View convertView, ViewGroup parent)
 	    {
-	        View resultView;
-	        if (convertView == null) 
-	        {  // if it's not recycled, initialize some attributes
-
-	            LayoutInflater inflator = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	            resultView = inflator.inflate(R.layout.focused_result_item, null);
-             
-	        }
-	        else 
-	        {
-	            resultView = (TextView) convertView;
-	        }	     
-	        
-	        ((TextView)resultView.findViewById(R.id.focused_result_item)).setText(Html.fromHtml(results.get(position)));	        
-	        return resultView;
+	    	if(position < getCount())
+	    	{
+		        View resultView;
+		        if (convertView == null) 
+		        {  // if it's not recycled, initialize some attributes
+	
+		            LayoutInflater inflator = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		            resultView = inflator.inflate(R.layout.focused_result_item, null);
+	             
+		        }
+		        else 
+		        {
+		            resultView = (TextView) convertView;
+		        }	     
+		        
+		        ((TextView)resultView.findViewById(R.id.focused_result_item)).setText(Html.fromHtml(results.get(position)));	        
+		        return resultView;
+	    	}
+	    	return null;
 	    }
 	}
 

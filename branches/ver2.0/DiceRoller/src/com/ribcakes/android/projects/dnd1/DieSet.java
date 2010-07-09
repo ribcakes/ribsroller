@@ -219,9 +219,7 @@ public class DieSet implements Parcelable
 		String coefficient = "";
 		String value = "";
 		Die parsedDie = null;
-		
-		Log.i("DieSet:toString()", "string to decode: "+string);
-		
+				
 		while(string.contains("+"))
 		{
 			locationOfPlus = string.indexOf("+");
