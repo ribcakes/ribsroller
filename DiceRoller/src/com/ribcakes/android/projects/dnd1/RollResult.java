@@ -3,7 +3,11 @@ package com.ribcakes.android.projects.dnd1;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RollResult 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+
+public class RollResult implements Parcelable
 {
 	public static final Random gen = new Random();
 	
@@ -21,6 +25,13 @@ public class RollResult
 		rollDice();
 	}
 	
+	public RollResult(Parcel source)
+	{
+		this.rolled = source.readParcelable(getClass().getClassLoader());
+		this.results = source.readArrayList(null);
+		this.result = source.readInt();
+	}
+
 	public void rollDice()
 	{
 		int temp = 0;
@@ -71,5 +82,33 @@ public class RollResult
 	{
 		return result+"";
 	}
+
+	public int describeContents() 
+	{
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		dest.writeParcelable(this.rolled, flags);
+		dest.writeList(this.results);
+		dest.writeInt(result);
+	}
 	
+	public static final Parcelable.Creator<RollResult> CREATOR
+	= new Parcelable.Creator<RollResult>()
+	{
+
+		public RollResult createFromParcel(Parcel source) 
+		{
+			return new RollResult(source);
+		}
+
+		public RollResult[] newArray(int size) 
+		{
+			return new RollResult[size];
+		}
+		
+	};
+
 }

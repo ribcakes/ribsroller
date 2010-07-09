@@ -31,9 +31,8 @@
 		android:icon="@android:drawable/ic_menu_add"
 	></item>
 	
-	<item android:title="Preferences" 
-		android:id="@+id/preferences"
+	<item android:id="@+id/preferences"
 		android:icon="@android:drawable/ic_menu_preferences"
-	></item>
+	android:title="Settings"></item>
 	
 </menu>
