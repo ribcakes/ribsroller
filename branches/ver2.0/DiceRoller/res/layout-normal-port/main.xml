@@ -11,11 +11,11 @@
 			
 		    android:layout_width="wrap_content" 
 		    android:layout_height="fill_parent"
-			
-			android:layout_marginTop="10dp"
-			android:layout_marginLeft="10dp"
-			android:layout_marginRight="250dp"
-			android:layout_marginBottom="10dp"
+						
+			android:layout_marginTop="92dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginBottom="210dp"
 			
 		    android:columnWidth="80dp"
 		    android:numColumns="auto_fit"
@@ -31,18 +31,66 @@
 			
 			android:background="@drawable/background_pane"		    
 		></GridView>			
+
+		<LinearLayout  
+			android:id="@+id/clear_quit_block"
+		    android:orientation="horizontal"
+
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+
+			android:layout_alignParentRight="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
 			
+		    android:gravity="center_horizontal"
+
+		    android:paddingTop="5dip"
+		    > <!-- Button Block -->
 		
+   	    	<Button
+		    	android:id="@+id/clear_button"
+
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"	
+		    	android:layout_weight="1"		    
+		    			    	
+		    	android:minWidth="65dp"
+
+		    	android:text="@string/clear"
+				android:textSize="12sp"
+				
+	    		android:onClick="clickListener"
+		    ></Button> 
+
+   	    	<Button
+		    	android:id="@+id/quit_button"
+
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_weight="1"		    
+
+		    	android:minWidth="65dp"
+
+		    	android:text="@string/quit"
+				android:textSize="12sp"
+
+	    		android:onClick="clickListener"
+		    ></Button> 			
+			    
+	    </LinearLayout>				
+	
 		<LinearLayout
 			android:id="@+id/log_container"
 		
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			
-			android:layout_marginTop="144dp"
-			android:layout_marginLeft="240dp"
+			android:layout_above="@id/clear_quit_block"
+			
+			android:layout_marginTop="250dp"
+			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:layout_marginBottom="10dp"
 									
 			android:background="@drawable/background_pane"
 			>
@@ -68,89 +116,34 @@
 			
 		</LinearLayout> <!-- content pane -->		
 		
-			<LinearLayout  
-				android:id="@+id/clear_quit_block"
-			    android:orientation="horizontal"
 
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-
-				android:layout_alignParentRight="true"
-				android:layout_alignLeft="@id/log_container"
-				
-				android:layout_marginTop="84dp"
-				android:layout_marginRight="3dp"
-
-			    android:gravity="center_horizontal"
-
-			    android:paddingTop="5dip"
-			    > <!-- Button Block -->
-			
-	   	    	<Button
-			    	android:id="@+id/clear_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"	
-			    	android:layout_weight="1"		    
-			    	
-			    	android:layout_marginTop="5dp"
-			    	
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/clear"
-					android:textSize="12sp"
-					
-		    		android:onClick="clickListener"
-			    ></Button> 
-	
-	   	    	<Button
-			    	android:id="@+id/quit_button"
-	
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:layout_weight="1"		    
-	
-			    	android:layout_marginTop="5dp"
-
-			    	android:minWidth="65dp"
-	
-			    	android:text="@string/quit"
-					android:textSize="12sp"
-	
-		    		android:onClick="clickListener"
-			    ></Button> 			
-			    
-		    </LinearLayout>
 		    
-		    <LinearLayout
-		    	android:id="@+id/focused_result_background"
+	    <LinearLayout
+	    	android:id="@+id/focused_result_background"
+	    	
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	
+	    	android:layout_alignParentRight="true"
+	    	android:layout_alignLeft="@id/log_container"
+			android:layout_alignParentTop="true"
 		    	
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	
-		    	android:layout_alignParentRight="true"
-		    	android:layout_alignLeft="@id/log_container"
-		    	android:layout_above="@id/clear_quit_block"
-		    	
-				android:layout_marginTop="10dp"
-				android:layout_marginRight="5dp"
-				android:layout_marginBottom="5dp"
-				
-				android:minWidth="233dp"
-				android:minHeight="75dp"
-		    	
-		    	android:background="@drawable/background_pane"
-		    	android:onClick="clickListener"
-		    	>
+			android:layout_marginTop="5dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginBottom="340dp"
+				    	
+	    	android:background="@drawable/background_pane"
+	    	android:onClick="clickListener"
+	    	>
+	    
+	    	<com.ribcakes.android.projects.dnd1.FocusedResult
+	    		android:id="@+id/focused_result_container"
+	    		
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="wrap_content"
+	    	></com.ribcakes.android.projects.dnd1.FocusedResult>
 		    
-		    	<com.ribcakes.android.projects.dnd1.FocusedResult
-		    		android:id="@+id/focused_result_container"
-		    		
-		    		android:layout_height="wrap_content"
-		    		android:layout_width="wrap_content"
-		    	></com.ribcakes.android.projects.dnd1.FocusedResult>
-		    
-		    </LinearLayout>
+	    </LinearLayout>
 			
 		
 	</RelativeLayout>
