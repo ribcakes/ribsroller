@@ -118,6 +118,7 @@ public class MainWindow extends Activity
 		
 		logAdapter = new LogAdapter<RollResult>(this);
 		log = (ListView)findViewById(R.id.log);		
+		Log.i(TAG+"onCreate()", "isFocusable: "+dieLibrary.isFocusable());
 		log.setAdapter(logAdapter);	
 		log.setOnItemClickListener(
 				new OnItemClickListener()
@@ -148,7 +149,6 @@ public class MainWindow extends Activity
 		thread.start();
 
 		dieLibrary.setFocusable(true);
-		dieLibrary.setFocusableInTouchMode(true);
 		dieLibrary.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
 		Log.i(TAG+"onCreate()", "isFocusable: "+dieLibrary.isFocusable());
 		
