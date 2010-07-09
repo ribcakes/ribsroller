@@ -30,7 +30,7 @@
     <application android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar" android:icon="@drawable/d20">
     
     
-        <activity android:name=".MainWindow2"
+        <activity android:name=".MainWindow"
                   android:label="@string/app_name">
     
             <intent-filter>
