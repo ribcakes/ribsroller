@@ -63,17 +63,27 @@ public class DieSetDbAdapter
 	  
 	    public DieSetDbAdapter open() throws SQLException 
 	    {
-	        mDbHelper = new DatabaseHelper(mContext);
-	        
-	        mDb = mDbHelper.getWritableDatabase();
+	    	Log.i("RibsRoller", "opening");
 
+	    	mDbHelper = new DatabaseHelper(mContext);	        
+	        mDb = mDbHelper.getWritableDatabase();
+	        	        
 	        return this;
 	    }
 	    
 	    public void close() 
 	    {
+	    	Log.i("RibsRoller", "closing");
 	        mDbHelper.close();
 	        mDb.close();
+	    }
+	    
+	    public boolean isOpened()
+	    {
+	    	if(mDb != null)
+	    		return mDb.isOpen();
+	    	else
+	    		return false;
 	    }
 
 	    public long addDieSet(DieSet d)
