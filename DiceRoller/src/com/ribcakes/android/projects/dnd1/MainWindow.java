@@ -87,6 +87,7 @@ public class MainWindow extends Activity
 	
 	private SensorManager mSensorManager;
 	private double mLastForce; 
+	private double mLastNetForce;
 	
 	private final SensorEventListener mSensorListener = new SensorEventListener()
 	{
@@ -97,11 +98,11 @@ public class MainWindow extends Activity
 
 			public void onSensorChanged(SensorEvent event) 
 			{
-                if(event.sensor.getType() == SensorManager.SENSOR_ACCELEROMETER)
+                if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
                 {
                		float[] values = event.values;
                 	
-                        double forceThreshHold = .15f;
+                        double forceThreshHold = .1f;
                        
                         double totalForce = 0.0f;
                         totalForce += Math.pow(values[SensorManager.DATA_X]/SensorManager.GRAVITY_EARTH, 2.0);
@@ -112,15 +113,19 @@ public class MainWindow extends Activity
                         double netForce = 0;
                         netForce = totalForce - mLastForce;
 
-                		Log.i(TAG+"mSensorListener", "net force: "+netForce);
-                       
+                		Log.i(TAG, "net force: "+netForce);
                         
-                        if(netForce > forceThreshHold)
+                        if((Math.abs(mLastNetForce) > forceThreshHold) && (Math.abs(netForce) < forceThreshHold))
                         {
-                    		Log.i(TAG+"mSensorListener", "sufficient force");
+                    		Log.i(TAG, "sufficient force: "+netForce);
                     		makeResultFromFocused();
                         }
+                        else if(netForce > .1f)
+                        {
+                    		Log.i(TAG, "net force: "+netForce);
+                        }
                        
+                        mLastNetForce = netForce;
                         mLastForce = totalForce;
                 }
 			}
@@ -185,9 +190,10 @@ public class MainWindow extends Activity
 		registerForContextMenu(dieLibrary);
 		
 		mLastForce = 0.0f;
+		mLastNetForce = 0.0f;
 		
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
 
 		
@@ -458,7 +464,10 @@ public class MainWindow extends Activity
         logAdapter.resize();
         log.setAdapter(logAdapter);
         
-        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        
+        if(mDbHelper != null)
+        	mDbHelper.open();
         
 		super.onResume();
 	}	
@@ -466,9 +475,12 @@ public class MainWindow extends Activity
     @Override
     protected void onPause()
     {
-            super.onPause();
+    	super.onPause();
            
-            mSensorManager.unregisterListener(mSensorListener);
+        if(mDbHelper != null)
+        	mDbHelper.close();
+        
+        mSensorManager.unregisterListener(mSensorListener);
     }
 	
 	protected void onStop()
@@ -560,7 +572,7 @@ public class MainWindow extends Activity
 	        {  // if it's not recycled, initialize some attributes
 
 	            LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	            dieView = inflator.inflate(R.layout.die_library_item, null);
+	            dieView = inflator.inflate(R.layout.die_item, null);
              
 	        }
 	        else 
@@ -568,7 +580,7 @@ public class MainWindow extends Activity
 	            dieView = (TextView) convertView;
 	        }
 
-	        ((TextView)dieView.findViewById(R.id.die_library_item_text)).setText(dice.get(position).toString());	        
+	        ((TextView)dieView.findViewById(R.id.die_item_text)).setText(dice.get(position).toString());	        
 	        return dieView;
 	    }
 	}
