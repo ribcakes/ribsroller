@@ -58,10 +58,11 @@
         android:layout_toLeftOf="@id/d"
 		android:layout_below="@id/new_die_hint"
         
+        android:layout_marginLeft="5dp"	
         android:layout_marginRight="5dp"	
         
-        android:minWidth="85dp"
-        
+        android:minWidth="200dp"
+       
         android:scrollHorizontally="true"
         android:gravity="center"         
 		
@@ -78,8 +79,9 @@
 		android:layout_below="@id/new_die_hint"
 
         android:layout_marginLeft="5dp"	
+        android:layout_marginRight="5dp"	
         
-        android:minWidth="85dp"
+        android:minWidth="200dp"
         
         android:scrollHorizontally="true"
         android:gravity="center"         
