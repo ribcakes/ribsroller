@@ -34,6 +34,8 @@
 
 			    android:stretchMode="columnWidth"
 			    android:gravity="center"
+
+				android:listSelector="@drawable/transparent00000000"
 			></GridView>			
 			
 		</LinearLayout> <!-- content pane -->

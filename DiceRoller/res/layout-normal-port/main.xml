@@ -24,9 +24,9 @@
 				
 			    android:layout_width="wrap_content" 
 			    android:layout_height="fill_parent"
-							
 
-				
+				android:layout_marginBottom="3dp"
+											
 			    android:columnWidth="80dp"
 			    android:numColumns="auto_fit"
 	
@@ -36,9 +36,7 @@
 			    android:stretchMode="columnWidth"
 			    android:gravity="center"
 			    
-			    android:focusable="true"
-			    android:focusableInTouchMode="true"
-				
+				android:listSelector="@drawable/transparent00000000"
 			></GridView>	
 			
 		</LinearLayout>		
