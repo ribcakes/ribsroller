@@ -42,22 +42,21 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 public class MainWindow extends Activity
@@ -66,8 +65,6 @@ public class MainWindow extends Activity
 	private static final int CREATE_A_DIE_SET = 0;
 	private static final int EDIT_DIE_SET = 1;
 	private static final int DELETE_DIE_SET = 2;
-
-	private static final String TAG = "Rib's Roller:MainWindow:";
 
 	private int itemGeneratedContext;
 	private int maxRetained;
@@ -113,18 +110,12 @@ public class MainWindow extends Activity
                         double netForce = 0;
                         netForce = totalForce - mLastForce;
 
-                		Log.i(TAG, "net force: "+netForce);
                         
                         if((Math.abs(mLastNetForce) > forceThreshHold) && (Math.abs(netForce) < forceThreshHold))
                         {
-                    		Log.i(TAG, "sufficient force: "+netForce);
                     		makeResultFromFocused();
                         }
-                        else if(netForce > .1f)
-                        {
-                    		Log.i(TAG, "net force: "+netForce);
-                        }
-                       
+
                         mLastNetForce = netForce;
                         mLastForce = totalForce;
                 }
@@ -169,9 +160,41 @@ public class MainWindow extends Activity
 					
 				});
 		
-		logAdapter = new LogAdapter<RollResult>(this);
+
+		focusedResultContainer = (FocusedResult)findViewById(R.id.focused_result_container);
+
+		
+		Bundle retained = (Bundle)getLastNonConfigurationInstance();
+		if(retained != null)
+		{
+			if(retained.getParcelable("focusedResult") != null)
+			{
+				focusedResult = retained.getParcelable("focusedResult");
+				focusedResultContainer.setFocused(focusedResult);
+			}
+			else
+			{
+				focusedResult = null;
+			}
+			
+			if(retained.getParcelableArrayList("log") != null)
+			{
+				ArrayList<RollResult> temp = retained.getParcelableArrayList("log");		
+				logAdapter = new LogAdapter<RollResult>(this, temp, retained.getInt("maximum"));
+			}
+			else
+			{
+				logAdapter = new LogAdapter<RollResult>(this);
+			}
+		}
+		else
+		{
+			logAdapter = new LogAdapter<RollResult>(this);
+			focusedResult = null;
+		}
+		
+		
 		log = (ListView)findViewById(R.id.log);		
-		Log.i(TAG+"onCreate()", "isFocusable: "+dieLibrary.isFocusable());
 		log.setAdapter(logAdapter);	
 		log.setOnItemClickListener(
 				new OnItemClickListener()
@@ -180,13 +203,11 @@ public class MainWindow extends Activity
 					public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
 					{
 						focusedResultContainer.setFocused(logAdapter.getItem(position));
+						focusedResult = logAdapter.getItem(position);
 					}
 					
 				});
-		
-		focusedResultContainer = (FocusedResult)findViewById(R.id.focused_result_container);
-		focusedResult = null;
-		
+				
 		registerForContextMenu(dieLibrary);
 		
 		mLastForce = 0.0f;
@@ -197,24 +218,7 @@ public class MainWindow extends Activity
 
 
 		
-		Thread thread = 
-			new Thread("Import Database")
-			{
-				public void run()
-				{
-					createDatabase();
-				}
-			};
-		thread.start();
-		
-		
-
-		dieLibrary.setFocusable(true);
-		dieLibrary.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-		Log.i(TAG+"onCreate()", "isFocusable: "+dieLibrary.isFocusable());
-		
-	
-		dieLibrary.requestFocus();
+		createDatabase();
 	}
 	
 	private void makeResult(DieSet item) 
@@ -246,18 +250,18 @@ public class MainWindow extends Activity
 		try
 		{
 			mDbHelper.open();
+			fetchDieSetsFromDatabase();
 		}
 		catch (SQLException e)
 		{
 			Toast.makeText(this, "Database could not be opened/created properly.  Please clear application data to reset Database.", Toast.LENGTH_LONG);
+			Log.e("Rib's Roller", "Database could not be opened/created properly.");
 		}
-		fetchDieSetsFromDatabase();
 	}
 
 	private void fetchDieSetsFromDatabase()
 	{
 		Cursor dieCursor = mDbHelper.fetchAllDieSets();
-		startManagingCursor(dieCursor);
 
 		dieCursor.moveToFirst();
 		
@@ -273,9 +277,12 @@ public class MainWindow extends Activity
 
 				runOnUiThread(invalidateContent);					
 			}while(dieCursor.moveToNext());
+			dieCursor.close();
 		}
 		else
 		{
+			dieCursor.close();
+
 			dieAdapter.add(new DieSet(new Die(1, 4)));
 			addDieSetToDataBase(new DieSet(new Die(1, 4)));
 			
@@ -298,6 +305,7 @@ public class MainWindow extends Activity
 			addDieSetToDataBase(new DieSet(new Die(1, 100)));
 					
 		}
+		
 		
 		runOnUiThread(invalidateContent);
 	}
@@ -335,11 +343,13 @@ public class MainWindow extends Activity
     			logAdapter.removeAll();
     			focusedResultContainer.clearFocused();
     			break;
+    			
     		case R.id.quit_button:
     			mDbHelper.close();
     			finish();
     			System.exit(0);
     			break;
+    			
     		case R.id.focused_result_background:
     			makeResultFromFocused();
     			break;
@@ -418,6 +428,9 @@ public class MainWindow extends Activity
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 		
+        if(mDbHelper != null && !mDbHelper.isOpened())
+        	mDbHelper.open();
+		
 		switch(requestCode)
 		{
 			case CREATE_A_DIE_SET:
@@ -465,8 +478,8 @@ public class MainWindow extends Activity
         log.setAdapter(logAdapter);
         
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        
-        if(mDbHelper != null)
+ 
+        if(mDbHelper != null && !mDbHelper.isOpened())
         	mDbHelper.open();
         
 		super.onResume();
@@ -477,7 +490,7 @@ public class MainWindow extends Activity
     {
     	super.onPause();
            
-        if(mDbHelper != null)
+        if(mDbHelper != null && mDbHelper.isOpened())
         	mDbHelper.close();
         
         mSensorManager.unregisterListener(mSensorListener);
@@ -489,7 +502,22 @@ public class MainWindow extends Activity
 		editor.putString(getString(R.string.max_retained), maxRetained+"");
 		editor.commit();
 		
+        if(mDbHelper != null && mDbHelper.isOpened())
+        	mDbHelper.close();
+		
 		super.onStop();
+	}
+
+	@Override
+	public Bundle onRetainNonConfigurationInstance()
+	{
+		Bundle retain = new Bundle();
+		
+		retain.putParcelable("focusedResult", focusedResult);
+		retain.putParcelableArrayList("log", logAdapter.getContent());
+		retain.putInt("max", logAdapter.getMaximum());
+		
+		return retain;
 	}
 
 
@@ -577,7 +605,7 @@ public class MainWindow extends Activity
 	        }
 	        else 
 	        {
-	            dieView = (TextView) convertView;
+	            dieView = convertView;
 	        }
 
 	        ((TextView)dieView.findViewById(R.id.die_item_text)).setText(dice.get(position).toString());	        
@@ -599,6 +627,15 @@ public class MainWindow extends Activity
 			this.maximum = maxRetained;
 		}
 		
+		public LogAdapter(Context c, ArrayList<RollResult> content, int maximum)
+		{
+			super(c, R.layout.list_item);
+			this.content = new ArrayList<RollResult>();
+			this.content.ensureCapacity(maxRetained);
+			addAll(content);
+			this.maximum = maximum;
+		}
+	
 		public RollResult getItem(int position)
 		{
 			return content.get(position);
@@ -635,7 +672,14 @@ public class MainWindow extends Activity
 			super.add(r);
 		}
 
-
+		public void addAll(ArrayList<RollResult> r)
+		{
+			for(int i = r.size()-1; i >= 0; i--)
+			{
+				add(r.get(i));
+			}
+		}
+		
 		@Override
 		public void remove(RollResult object) 
 		{
@@ -675,7 +719,15 @@ public class MainWindow extends Activity
 			}
 		}
 		
-		
+		public ArrayList<RollResult> getContent()
+		{
+			return this.content;
+		}
+	
+		public int getMaximum()
+		{
+			return this.maximum;
+		}
 	}
 	
 }
