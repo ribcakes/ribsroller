@@ -54,7 +54,7 @@ public class FocusedResult extends LinearLayout
 		grid.setBackgroundResource(R.drawable.transparent00000000);
 		grid.invalidateViews();
 		((TextView)findViewById(R.id.focused_result_result)).setText("");
-		grid.setVisibility(GONE);
+		grid.setVisibility(INVISIBLE);
 		
 	}
 	

@@ -110,7 +110,8 @@ public class CreateSet extends Activity
 						return true;
 					}
 				});
-	}
+        
+		}
 	
 	public void onClick(View v)
 	{
@@ -376,15 +377,13 @@ public class CreateSet extends Activity
 	    // create a new ImageView for each item referenced by the Adapter
 	    public View getView(final int position, View convertView, ViewGroup parent)
 	    {
-	        TextView dieView;
+	        View dieView;
 	        if (convertView == null) 
 	        {  // if it's not recycled, initialize some attributes
-	            dieView = new TextView(mContext);
-	            dieView.setLayoutParams(new GridView.LayoutParams(90, 60));
-	            dieView.setBackgroundResource(R.drawable.button_background);
-	            dieView.setTextSize(18);
-	            dieView.setTextColor(Color.BLACK);
-	            dieView.setGravity(Gravity.CENTER);
+	          
+	            LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	            dieView = inflator.inflate(R.layout.die_item, null);
+
 	                        
 	        }
 	        else 
@@ -392,7 +391,7 @@ public class CreateSet extends Activity
 	            dieView = (TextView) convertView;
 	        }
 
-	        dieView.setText(dice.get(position).toString());
+	        ((TextView)dieView.findViewById(R.id.die_item_text)).setText(dice.get(position).toString());	        
 	        return dieView;
 	    }
 	}
