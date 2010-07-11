@@ -63,8 +63,6 @@ public class DieSetDbAdapter
 	  
 	    public DieSetDbAdapter open() throws SQLException 
 	    {
-	    	Log.i("RibsRoller", "opening");
-
 	    	mDbHelper = new DatabaseHelper(mContext);	        
 	        mDb = mDbHelper.getWritableDatabase();
 	        	        
@@ -73,7 +71,6 @@ public class DieSetDbAdapter
 	    
 	    public void close() 
 	    {
-	    	Log.i("RibsRoller", "closing");
 	        mDbHelper.close();
 	        mDb.close();
 	    }
@@ -98,6 +95,11 @@ public class DieSetDbAdapter
 	    public boolean deleteDieSet(long rowID)
 	    {
 	    	return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowID, null) > 0;
+	    }
+	    
+	    public boolean deleteAllEntries()
+	    {
+	    	return mDb.delete(DATABASE_TABLE, null, null) > 0;
 	    }
 	    
 	    public Cursor fetchAllDieSets()

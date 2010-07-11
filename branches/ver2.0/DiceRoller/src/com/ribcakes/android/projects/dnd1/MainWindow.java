@@ -29,7 +29,10 @@ package com.ribcakes.android.projects.dnd1;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -53,6 +56,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,6 +69,7 @@ public class MainWindow extends Activity
 	private static final int CREATE_A_DIE_SET = 0;
 	private static final int EDIT_DIE_SET = 1;
 	private static final int DELETE_DIE_SET = 2;
+	private static final int RESET_ALL_TO_DEFAULT = 3;
 
 	private int itemGeneratedContext;
 	private int maxRetained;
@@ -124,8 +129,8 @@ public class MainWindow extends Activity
 
 	  };
 
-
-	@Override
+	  
+  @Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -216,7 +221,16 @@ public class MainWindow extends Activity
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
-
+	    ((Button)findViewById(R.id.clear_button)).setOnLongClickListener(
+	    		new View.OnLongClickListener() 
+	    		{
+					
+					public boolean onLongClick(View v) 
+					{
+						showDialog(RESET_ALL_TO_DEFAULT);
+						return true;
+					}
+				});
 		
 		createDatabase();
 	}
@@ -235,7 +249,6 @@ public class MainWindow extends Activity
 		}
 	}
 
-	
 	private void makeResultFromFocused()
 	{
 		if(focusedResult != null)
@@ -282,28 +295,7 @@ public class MainWindow extends Activity
 		else
 		{
 			dieCursor.close();
-
-			dieAdapter.add(new DieSet(new Die(1, 4)));
-			addDieSetToDataBase(new DieSet(new Die(1, 4)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 6)));
-			addDieSetToDataBase(new DieSet(new Die(1, 6)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 8)));
-			addDieSetToDataBase(new DieSet(new Die(1, 8)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 10)));
-			addDieSetToDataBase(new DieSet(new Die(1, 10)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 12)));
-			addDieSetToDataBase(new DieSet(new Die(1, 12)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 20)));
-			addDieSetToDataBase(new DieSet(new Die(1, 20)));
-			
-			dieAdapter.add(new DieSet(new Die(1, 100)));
-			addDieSetToDataBase(new DieSet(new Die(1, 100)));
-					
+			fillDatabaseWithDefaultSets();			
 		}
 		
 		
@@ -325,6 +317,35 @@ public class MainWindow extends Activity
 		mDbHelper.updateDieSet(d.getDatabaseRowID(), d);
 	}
 
+	private void fillDatabaseWithDefaultSets()
+	{
+		dieAdapter.add(new DieSet(new Die(1, 4)));
+		addDieSetToDataBase(new DieSet(new Die(1, 4)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 6)));
+		addDieSetToDataBase(new DieSet(new Die(1, 6)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 8)));
+		addDieSetToDataBase(new DieSet(new Die(1, 8)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 10)));
+		addDieSetToDataBase(new DieSet(new Die(1, 10)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 12)));
+		addDieSetToDataBase(new DieSet(new Die(1, 12)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 20)));
+		addDieSetToDataBase(new DieSet(new Die(1, 20)));
+		
+		dieAdapter.add(new DieSet(new Die(1, 100)));
+		addDieSetToDataBase(new DieSet(new Die(1, 100)));
+	}
+	
+	private void removeAllSetsFromDatabase()
+	{
+		mDbHelper.deleteAllEntries();
+	}
+	
 	private Runnable invalidateContent = new Runnable() 
 	{
 		
@@ -334,7 +355,7 @@ public class MainWindow extends Activity
 		}
 	};
 
-	
+
 	public void clickListener(View view) //Buttons
     {
     	switch(view.getId())
@@ -355,9 +376,50 @@ public class MainWindow extends Activity
     			break;
     	}
     }
+
+
+	@Override
+	protected Dialog onCreateDialog(int id)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		AlertDialog confirm = builder
+		.setTitle("Reset Die Sets to Default")
+		.setMessage("Are you sure you want to reset all dice sets to default?\nThis will PERMANENTLY remove all custom die sets.")
+		.setPositiveButton("Ok", 
+				new DialogInterface.OnClickListener() 
+				{
+					
+					public void onClick(DialogInterface dialog, int which) 
+					{
+						dialog.dismiss();
+						
+						dieAdapter.clear();
+						dieLibrary.invalidateViews();
+		    			
+						logAdapter.removeAll();
+						focusedResultContainer.completelyClearFocused();
+						focusedResult = null;
+						
+						removeAllSetsFromDatabase();
+						fillDatabaseWithDefaultSets();
+						
+						dieLibrary.invalidateViews();
+					}
+				})
+		.setNegativeButton("Cancel", 
+				new DialogInterface.OnClickListener()
+				{
+					
+					public void onClick(DialogInterface dialog, int which) 
+					{
+						dialog.dismiss();
+					}
+				})
+		.create();
+		
+		return confirm;
+	}
 	
-
-
 	public boolean onCreateOptionsMenu(Menu menu) 
     {               
             MenuInflater inflater = getMenuInflater();
@@ -379,7 +441,9 @@ public class MainWindow extends Activity
                     i = new Intent(this, CreateSet.class);
                     startActivityForResult(i, CREATE_A_DIE_SET);
             		break;
-                    
+            	case R.id.reset:
+            		showDialog(RESET_ALL_TO_DEFAULT);
+                    break;
             }                                                       
             return true;
     }
@@ -398,7 +462,7 @@ public class MainWindow extends Activity
  				break;
  		}
 	}
-
+ 	
 	public boolean onContextItemSelected(MenuItem item)
 	{
 		Intent i = null;
@@ -415,9 +479,13 @@ public class MainWindow extends Activity
 			case DELETE_DIE_SET:
 				removeDieSetFromDataBase();
 				
+				if(dieAdapter.getItem(itemGeneratedContext).equals(focusedResult.getRolled()))
+					focusedResultContainer.completelyClearFocused();
+				
 				dieAdapter.remove(itemGeneratedContext);
 				dieLibrary.invalidateViews();
 				break;
+				
 			default:
 				return super.onContextItemSelected(item);
 		}
@@ -529,6 +597,11 @@ public class MainWindow extends Activity
 	    {
 	        dice = new ArrayList<DieSet>();
 	    }
+
+		public void clear()
+		{
+			dice.clear();
+		}
 
 		@SuppressWarnings("unchecked")
 		public DieAdapter(ArrayList<DieSet> dice)
