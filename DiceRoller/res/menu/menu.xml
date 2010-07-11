@@ -33,6 +33,12 @@
 	
 	<item android:id="@+id/preferences"
 		android:icon="@android:drawable/ic_menu_preferences"
-	android:title="Settings"></item>
+		android:title="Settings"
+	></item>
+	
+	<item android:id="@+id/reset"
+		android:icon="@android:drawable/ic_menu_revert"
+		android:title="Reset to Default"
+	></item>
 	
 </menu>

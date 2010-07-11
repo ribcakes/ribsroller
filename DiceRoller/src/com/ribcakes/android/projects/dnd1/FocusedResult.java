@@ -58,6 +58,13 @@ public class FocusedResult extends LinearLayout
 		
 	}
 	
+
+	public void completelyClearFocused() 
+	{
+		clearFocused();
+		((TextView)findViewById(R.id.focused_result_title)).setText("");
+	}
+	
 	
 	public class ResultAdapter extends BaseAdapter 
 	{
