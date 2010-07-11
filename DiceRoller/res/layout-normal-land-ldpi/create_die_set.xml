@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+	    android:background="#6A8048"
+		>
+		
+		<Button
+			android:id="@+id/save"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentRight="true"
+			
+			android:layout_marginTop="1dp"
+			
+			android:minWidth="60dp"
+			
+			android:text="@string/save"
+				
+			android:onClick="onClick"	
+		></Button>
+		
+		<EditText
+			android:id="@+id/title"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"
+			android:layout_toLeftOf="@id/save"
+			
+			android:layout_marginTop="1dp"
+			android:layout_marginLeft="1dp"
+
+			android:singleLine="true"
+			android:hint="@string/title_hint"
+		></EditText>
+		
+		<LinearLayout
+			android:id="@+id/create_die_set_button_panel"
+		
+			android:orientation="horizontal"
+			
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_marginTop="3dp"
+			
+			android:layout_alignParentBottom="true"
+			>
+			
+			<Button
+				android:id="@+id/new_die"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				
+				android:text="@string/new_die_text"
+				android:textSize="16sp"
+				
+				android:onClick="onClick"
+			></Button>
+			
+			<Button
+				android:id="@+id/plus_one"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"			
+				
+				android:text="@string/plus_one"
+				android:textSize="16sp"
+				
+				android:onClick="onClick"
+			></Button>
+	
+			<Button
+				android:id="@+id/minus_one"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"			
+				
+				android:text="@string/minus_one"
+				android:textSize="16sp"
+				
+				android:onClick="onClick"
+			></Button>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/create_die_set_center_box"
+		
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_below="@id/title"
+			android:layout_above="@id/create_die_set_button_panel"
+						
+			android:minHeight="325dp"
+			
+			android:background="@drawable/background_panev4"
+			>
+			
+			<GridView
+				android:id="@+id/create_die_set_content"
+				
+			    android:layout_width="fill_parent" 
+			    android:layout_height="fill_parent"
+
+				android:minWidth="300dp"
+
+			    android:columnWidth="80dp"
+			    android:numColumns="auto_fit"
+
+			    android:verticalSpacing="5dp"
+			    android:horizontalSpacing="15dp"
+
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+			></GridView>			
+			
+		</LinearLayout> <!-- content pane -->
+
+		<TextView
+			android:id="@+id/modifier"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_above="@id/create_die_set_button_panel"
+			android:layout_alignParentRight="true"
+			
+			android:layout_marginBottom="13dp"
+
+			android:minWidth="50dp"
+	
+			android:gravity="center_horizontal"
+			
+			android:textSize="20sp"
+			android:textStyle="bold"
+			android:singleLine="true"
+		></TextView>
+						
+		<TextView
+			android:id="@+id/long_click_instruct"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_above="@id/create_die_set_button_panel"
+			android:layout_alignParentLeft="true"
+			android:layout_alignRight="@id/modifier"
+			
+			android:layout_marginBottom="5dp"
+			
+			android:gravity="center_horizontal"
+			
+			android:text="@string/long_click_instruct_text"
+			android:textStyle="bold"			
+		></TextView>
+
+		<TextView
+			android:id="@+id/click_instruct"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_above="@id/long_click_instruct"
+			android:layout_alignParentLeft="true"
+			android:layout_alignRight="@id/modifier"
+						
+			android:layout_marginBottom="5dp"
+			
+			android:gravity="center_horizontal"
+			
+			android:text="@string/click_instruct_text"
+			android:textStyle="bold"
+		></TextView>
+		
+	</RelativeLayout>
