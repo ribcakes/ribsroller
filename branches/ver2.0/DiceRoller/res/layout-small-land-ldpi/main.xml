@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		
+	    android:background="#6A8048"
+		>	
+
+		<TextView
+			android:id="@+id/left_land_align"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:minWidth="190dp"
+			android:maxWidth="190dp"
+			android:minHeight="1dp"
+			android:maxHeight="1dp"
+		></TextView>
+		
+		<LinearLayout
+			android:id="@+id/die_library_container"
+		
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+
+			android:layout_alignRight="@id/left_land_align"
+
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginBottom="10dp"
+
+			android:background="@drawable/background_pane"
+			>
+		
+			<GridView
+				android:id="@+id/die_library"
+				
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content"
+								
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"				
+				
+			    android:columnWidth="70dp"
+			    android:numColumns="auto_fit"
+	
+			    android:verticalSpacing="5dp"
+			    android:horizontalSpacing="15dp"
+	
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+			    
+			    android:focusable="true"
+			    android:focusableInTouchMode="true"
+					
+				android:listSelector="@drawable/transparent00000000"
+			></GridView>			
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/log_container"
+		
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+
+			android:layout_toRightOf="@id/die_library_container"
+			
+			android:layout_marginTop="145dp"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginBottom="10dp"
+										
+			android:background="@drawable/background_pane"
+			>
+			
+		   	<ListView
+		   		android:id="@+id/log"
+  
+               	android:layout_width="fill_parent"
+               	android:layout_height="fill_parent"    
+								
+				android:layout_marginTop="3dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginLeft="1dp"
+									
+				android:background="#6A8048"
+											 				
+		        android:transcriptMode="alwaysScroll"  
+               	android:drawSelectorOnTop="false"
+				android:cacheColorHint="#00000000"
+				android:divider="@drawable/transparent00000000"
+				android:dividerHeight="1dp"
+      	    ></ListView>		
+			
+		</LinearLayout> <!-- content pane -->		
+		
+			<LinearLayout  
+				android:id="@+id/clear_quit_block"
+			    android:orientation="horizontal"
+
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+
+				android:layout_alignParentRight="true"
+				android:layout_alignLeft="@id/log_container"
+				
+				android:layout_marginTop="87dp"
+				android:layout_marginRight="3dp"
+
+			    android:gravity="center_horizontal"
+
+			    android:paddingTop="5dip"
+			    > <!-- Button Block -->
+			
+	   	    	<Button
+			    	android:id="@+id/clear_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"	
+			    	android:layout_weight="1"		    
+			    	
+			    	android:layout_marginTop="5dp"
+			    	
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/clear"
+					android:textSize="12sp"
+					
+		    		android:onClick="clickListener"
+			    ></Button> 
+	
+	   	    	<Button
+			    	android:id="@+id/quit_button"
+	
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:layout_weight="1"		    
+	
+			    	android:layout_marginTop="5dp"
+
+			    	android:minWidth="65dp"
+	
+			    	android:text="@string/quit"
+					android:textSize="12sp"
+	
+		    		android:onClick="clickListener"
+			    ></Button> 			
+			    
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		    	android:id="@+id/focused_result_background"
+		    	
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	
+		    	android:layout_alignParentRight="true"
+		    	android:layout_alignLeft="@id/log_container"
+		    	android:layout_above="@id/clear_quit_block"
+		    	
+				android:layout_marginTop="10dp"
+				android:layout_marginRight="5dp"
+				android:layout_marginBottom="5dp"
+				
+				android:minWidth="233dp"
+				android:minHeight="75dp"
+		    	
+		    	android:background="@drawable/background_pane"
+		    	android:onClick="clickListener"
+		    	>
+		    
+		    	<com.ribcakes.android.projects.dnd1.FocusedResult
+		    		android:id="@+id/focused_result_container"
+		    		
+		    		android:layout_height="wrap_content"
+		    		android:layout_width="wrap_content"
+		    	></com.ribcakes.android.projects.dnd1.FocusedResult>
+		    
+		    </LinearLayout>
+			
+		
+	</RelativeLayout>

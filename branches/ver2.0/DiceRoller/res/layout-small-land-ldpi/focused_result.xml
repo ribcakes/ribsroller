@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		>
+		
+		<TextView
+			android:id="@+id/focused_result_title"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			
+			android:textStyle="bold"
+		></TextView>
+		
+		<TextView
+			android:id="@+id/focused_result_result"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentRight="true"
+			android:layout_below="@id/focused_result_title"
+			
+			android:paddingRight="5dp"
+			android:paddingLeft="5dp"
+			
+			android:textSize="40sp"
+			android:textStyle="bold"
+			android:textColor="#8b5543"
+			
+			android:shadowColor="#4b152f"
+			android:shadowDy="2"
+			android:shadowDx="2"
+			android:shadowRadius="1"
+		></TextView>
+		
+		<LinearLayout
+			android:id="@+id/focused_result_dice"
+			android:orientation="horizontal"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			
+			android:layout_alignParentLeft="true"
+			android:layout_below="@id/focused_result_title"
+			
+			android:layout_marginRight="80dp"
+			android:layout_marginBottom="300dp"
+			>
+			
+			<GridView
+				android:id="@+id/focused_result_grid"
+				
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content"
+
+			    android:columnWidth="60dp"
+			    android:numColumns="2"
+
+			    android:verticalSpacing="3dp"
+			    android:horizontalSpacing="5dp"
+
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+  			></GridView>	
+	
+		</LinearLayout>
+		
+	</RelativeLayout>
