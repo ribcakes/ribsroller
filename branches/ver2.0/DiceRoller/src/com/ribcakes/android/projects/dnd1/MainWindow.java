@@ -40,6 +40,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -129,7 +130,21 @@ public class MainWindow extends Activity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		
+		if(metrics != null)
+		{
+			Log.i("RibsRoller", "height: "+metrics.heightPixels);
+			
+			if(metrics.heightPixels > 800 || metrics.heightPixels < metrics.widthPixels)
+			{
+				setContentView(R.layout.main);
+			}
+			else
+				setContentView(R.layout.mainv2);				
+		}
 
 		itemGeneratedContext = -1;
 		
