@@ -49,6 +49,10 @@
 	<string name="plus">+</string>
 	<string name="minus">-</string>
 	
+	<!-- Confirm Dialog Strings -->
+	<string name="confirm_warning_one">Are you sure you want to reset all dice sets to default?</string>
+	<string name="confirm_warning_two">This will <b>PERMANENTLY</b> remove all custom die sets.</string>
+	
 	<!-- Preference Strings -->
 	<string name="max_retained">Max Retained</string>
 	<string name="max_retained_title">Log Length</string>
