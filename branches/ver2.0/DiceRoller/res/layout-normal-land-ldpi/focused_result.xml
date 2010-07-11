@@ -15,7 +15,6 @@
 			android:layout_centerHorizontal="true"
 			
 			android:textStyle="bold"
-			android:textSize="20sp"
 		></TextView>
 		
 		<TextView
@@ -49,17 +48,16 @@
 			
 			android:layout_alignParentLeft="true"
 			android:layout_below="@id/focused_result_title"
-			android:layout_alignParentBottom="true"
 			
 			android:layout_marginRight="80dp"
-			android:layout_marginBottom="3dp"
+			android:layout_marginBottom="300dp"
 			>
 			
 			<GridView
 				android:id="@+id/focused_result_grid"
 				
 			    android:layout_width="wrap_content" 
-			    android:layout_height="fill_parent"
+			    android:layout_height="wrap_content"
 
 			    android:columnWidth="60dp"
 			    android:numColumns="2"
