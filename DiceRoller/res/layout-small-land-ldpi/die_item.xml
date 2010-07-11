@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/die_item_text"
+		
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		android:minWidth="70dp"
+		android:minHeight="40dp"
+		android:maxWidth="70dp"
+		android:maxHeight="40dp"
+		
+		android:gravity="center"
+		android:textSize="13sp"
+		android:textColor="#000"
+		
+		android:background="@drawable/button_background"
+	></TextView>
