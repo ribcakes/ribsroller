@@ -5,6 +5,105 @@
 		
 	    android:background="#6A8048"
 		>		
+		
+	    <TextView
+	    	android:id="@+id/large_port_top_align"
+	    	
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	
+	    	android:minWidth="1dp"
+	    	android:maxWidth="1dp"
+	    	android:minHeight="187dp"
+	    	android:maxHeight="187dp"
+	    	
+	    	android:background="#fff"
+	    ></TextView>
+		    
+	    <LinearLayout
+	    	android:id="@+id/focused_result_background"
+	    	
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	
+	    	android:layout_alignParentRight="true"
+	    	android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_alignBottom="@id/large_port_top_align"
+		    	
+			android:layout_marginTop="5dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginLeft="5dp"
+				    	
+	    	android:background="@drawable/background_pane"
+	    	android:onClick="clickListener"
+	    	>
+	    
+	    	<com.ribcakes.android.projects.dnd1.FocusedResult
+	    		android:id="@+id/focused_result_container"
+	    		
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="wrap_content"
+	    	></com.ribcakes.android.projects.dnd1.FocusedResult>
+		    
+	    </LinearLayout>
+
+	    <TextView
+	    	android:id="@+id/large_port_middle_align"
+	    	
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	
+	    	android:layout_below="@id/large_port_top_align"
+	    	
+	    	android:layout_marginTop="5dp"
+	    	
+	    	android:minWidth="1dp"
+	    	android:maxWidth="1dp"
+	    	android:minHeight="220dp"
+	    	android:maxHeight="220dp"
+	    	
+	    	android:background="#fff"
+	    ></TextView>
+
+		<LinearLayout
+			android:id="@+id/die_library_container"
+		
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+					
+			android:layout_alignTop="@id/large_port_middle_align"
+			android:layout_alignBottom="@id/large_port_middle_align"
+							
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+									
+			android:background="@drawable/background_pane"
+			>		
+		
+			<GridView
+				android:id="@+id/die_library"
+				
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content"
+
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+											
+			    android:columnWidth="120dp"
+			    android:numColumns="auto_fit"
+	
+			    android:verticalSpacing="5dp"
+			    android:horizontalSpacing="15dp"
+	
+			    android:stretchMode="columnWidth"
+			    android:gravity="center"
+			    
+				android:listSelector="@drawable/transparent00000000"
+			></GridView>	
+			
+		</LinearLayout>	
 
 		<LinearLayout  
 			android:id="@+id/clear_quit_block"
@@ -61,10 +160,11 @@
 			android:layout_height="fill_parent"
 			
 			android:layout_above="@id/clear_quit_block"
+			android:layout_below="@id/large_port_middle_align"
 			
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="5dp"
-			android:layout_marginTop="495dp"
+			android:layout_marginTop="10dp"
 												
 			android:background="@drawable/background_pane"
 			>
@@ -90,71 +190,8 @@
 			
 		</LinearLayout> <!-- content pane -->		
 		
-		<LinearLayout
-			android:id="@+id/die_library_container"
-		
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-					
-			android:layout_above="@id/log_container"
-						
-			android:layout_marginTop="195dp"
-			android:layout_marginLeft="5dp"
-			android:layout_marginRight="5dp"
-			android:layout_marginBottom="340dp"
-									
-			android:background="@drawable/background_pane"
-			>		
-		
-			<GridView
-				android:id="@+id/die_library"
-				
-			    android:layout_width="wrap_content" 
-			    android:layout_height="fill_parent"
 
-				android:layout_marginBottom="5dp"
-				android:layout_marginTop="5dp"
-											
-			    android:columnWidth="120dp"
-			    android:numColumns="auto_fit"
-	
-			    android:verticalSpacing="5dp"
-			    android:horizontalSpacing="15dp"
-	
-			    android:stretchMode="columnWidth"
-			    android:gravity="center"
-			    
-				android:listSelector="@drawable/transparent00000000"
-			></GridView>	
-			
-		</LinearLayout>	
-		    
-	    <LinearLayout
-	    	android:id="@+id/focused_result_background"
-	    	
-	    	android:layout_width="wrap_content"
-	    	android:layout_height="wrap_content"
-	    	
-	    	android:layout_alignParentRight="true"
-	    	android:layout_alignLeft="@id/log_container"
-			android:layout_alignParentTop="true"
-		    	
-			android:layout_marginTop="5dp"
-			android:layout_marginRight="5dp"
-			android:layout_marginBottom="340dp"
-				    	
-	    	android:background="@drawable/background_pane"
-	    	android:onClick="clickListener"
-	    	>
-	    
-	    	<com.ribcakes.android.projects.dnd1.FocusedResult
-	    		android:id="@+id/focused_result_container"
-	    		
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="wrap_content"
-	    	></com.ribcakes.android.projects.dnd1.FocusedResult>
-		    
-	    </LinearLayout>
+
 			
 		
 	</RelativeLayout>

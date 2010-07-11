@@ -51,10 +51,10 @@
 			
 			android:layout_alignParentLeft="true"
 			android:layout_below="@id/focused_result_title"
-			
+			android:layout_alignParentBottom="true"
+						
 			android:layout_marginRight="150dp"
 			android:layout_marginTop="10dp"
-			android:layout_marginBottom="300dp"
 			>
 			
 			<GridView
