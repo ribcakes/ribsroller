@@ -26,6 +26,7 @@ public class FocusedResult extends LinearLayout
 		this.context = context;
 		
 		LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		@SuppressWarnings("unused")
 		View view = layoutInflater.inflate(R.layout.focused_result,this);
 		
 		adapter = new ResultAdapter();
