@@ -382,9 +382,13 @@ public class MainWindow extends Activity
 	protected Dialog onCreateDialog(int id)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View confirmDialog = inflator.inflate(R.layout.confirm_dialog, null);
+		
 		AlertDialog confirm = builder
 		.setTitle("Reset Die Sets to Default")
-		.setMessage("Are you sure you want to reset all dice sets to default?\nThis will PERMANENTLY remove all custom die sets.")
+		.setView(confirmDialog)
 		.setPositiveButton("Ok", 
 				new DialogInterface.OnClickListener() 
 				{
