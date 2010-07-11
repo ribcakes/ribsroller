@@ -9,10 +9,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,13 +59,13 @@ public class CreateSet extends Activity
 			@SuppressWarnings("unchecked")
 			ArrayList<Die> dice = (ArrayList<Die>) ((retained.getParcelableArrayList("currentDieSet") == null) ? new ArrayList<Die>():retained.getParcelableArrayList("currentDieSet"));
 			
-			adapter = new DieAdapter(this, dice);
+			adapter = new DieAdapter(dice);
 		}
 		else
 		{
 			modifier = 0;
 			currentEdit = new Die();
-			adapter = new DieAdapter(this);				
+			adapter = new DieAdapter();				
 		}
 				
 		content = (GridView)findViewById(R.id.create_die_set_content);
@@ -328,19 +326,16 @@ public class CreateSet extends Activity
 
 	public class DieAdapter extends BaseAdapter 
 	{
-	    private Context mContext;
 	    private ArrayList<Die> dice;
 	    
-	    public DieAdapter(Context c)
+	    public DieAdapter()
 	    {
-	        mContext = c;
 	        dice = new ArrayList<Die>();
 	    }
 	    
 	    @SuppressWarnings("unchecked")
-		public DieAdapter(Context c, ArrayList<Die> dice)
+		public DieAdapter(ArrayList<Die> dice)
 	    {
-	        mContext = c;
 	        this.dice = (ArrayList<Die>) dice.clone();
 		}
 

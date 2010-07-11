@@ -25,6 +25,7 @@ public class RollResult implements Parcelable
 		rollDice();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public RollResult(Parcel source)
 	{
 		this.rolled = source.readParcelable(getClass().getClassLoader());
