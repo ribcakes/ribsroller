@@ -23,7 +23,7 @@
 		android:layout_height="wrap_content"
 		>
 		
-		<TextView
+		<com.ribcakes.android.projects.dnd1.RotatingText
 			android:id="@+id/focused_result_title"
 			
 			android:layout_width="wrap_content"
@@ -34,7 +34,11 @@
 			
 			android:textStyle="bold"
 			android:textSize="20sp"
-		></TextView>
+
+	        android:singleLine="true"
+	        android:ellipsize="marquee"
+	        android:marqueeRepeatLimit="marquee_forever"
+	></com.ribcakes.android.projects.dnd1.RotatingText>	
 		
 		<TextView
 			android:id="@+id/focused_result_result"
