@@ -7,6 +7,6 @@ Rib's Roller is a dice rolling application.  It was originally designed with Dun
 = Installation =
 An installation package for installation can be obtained either through the Android Market or from this website.  I would suggest downloading the application from the market as it will notify you to any updates whereas an installation package obtained here will not.
 
-http://picasaweb.google.com/lh/photo/8XP119hDcTtBB10HxP4IcQ?feat=directlink=something_that_ends_with.png
+http://picasaweb.google.com/lh/photo/8XP119hDcTtBB10HxP4IcQ?feat=directlink
 
 =  =
