@@ -3,7 +3,6 @@ package com.ribcakes.android.projects.dnd1;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.widget.TextView;
 
 public class RotatingText extends TextView 
@@ -24,9 +23,6 @@ public class RotatingText extends TextView
 	public RotatingText(Context context, AttributeSet attrs) 
 	{
 		super(context, attrs);
-		
-		 LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		 View view = layoutInflater.inflate(R.layout.example,this);
 	}
 
 
