@@ -1,8 +1,7 @@
 #summary Intro & User Manual
 
-= Introduction =
+= Rib's Roller =
 
-Rib's Roller is the first Android app that we have ever coded.  It was meant as a way for us to lean some of the basics of Android Coding.  It will be maintained for the foreseeable future because of it's simplicity.  If you have any ideas or suggestions feel free to send one of the owners an e-mail, post a comment on the market, or post on Rib's blog. 
-
+Rib's Roller is a dice rolling application.  It was originally designed with Dungeons and Dragons© in mind, but as the project progressed, it has deviated from the d20 System©
 
 = Details =
