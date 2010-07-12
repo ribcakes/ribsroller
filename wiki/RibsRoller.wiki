@@ -9,6 +9,6 @@ An installation package for installation can be obtained either through the Andr
 
 If you are viewing this web page on your phone, you can go to the following link to download the app from the market:
 
-http://market.android.com/search?q=pname:conm.ribcakes.android.projects.dnd1
+http://market.android.com/search?q=pname:com.ribcakes.android.projects.dnd1
 
 =  =
