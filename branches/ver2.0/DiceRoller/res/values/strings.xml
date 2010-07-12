@@ -51,5 +51,6 @@
 	<string name="max_retained">Max Retained</string>
 	<string name="max_retained_title">Log Length</string>
 	<string name="max_retained_message">The maximum number of rolls the log can hold.</string>
+	<string name="settings">Settings</string>
 	
 </resources>
