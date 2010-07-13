@@ -20,7 +20,7 @@
 
 	<resources>
 	
-		<string-array name="Options">
+		<string-array name="log_lengths">
 			<item>4</item>
 			<item>8</item>
 			<item>12</item>
@@ -29,13 +29,45 @@
 			<item>Unlimited (WARNING HIGH MEMORY USAGE)</item>
 		</string-array>
 		
-		<string-array name="OptionValues">
+		<string-array name="log_lengths_values">
 			<item>4</item>
 			<item>8</item>
 			<item>12</item>
 			<item>16</item>
 			<item>20</item>
 			<item>0</item>
+		</string-array>
+		
+		
+		<string-array name="accel_sensitvities">
+			<item>Very High</item>
+			<item>High</item>
+			<item>Medium (default)</item>
+			<item>Low</item>
+			<item>Very Low</item>
+		</string-array>
+	
+		<string-array name="accel_sensitvities_values">
+			<item>.025</item>
+			<item>.05</item>
+			<item>.1</item>
+			<item>.15</item>
+			<item>.2</item>
+		</string-array>
+	
+	
+		<string-array name="accel_rates">	
+			<item>Very High</item>
+			<item>High</item>
+			<item>Medium</item>
+			<item>Low (default)</item>
+		</string-array>
+	
+		<string-array name="accel_rates_values">
+			<item>0</item>
+			<item>1</item>
+			<item>2</item>
+			<item>3</item>
 		</string-array>
 	
 	</resources>

@@ -18,13 +18,11 @@
 -->
 
 <PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android" >
 
 
 
-		<PreferenceCategory
- 			android:title="@string/settings"
- 			>
+		<PreferenceCategory android:title="@string/log_title">
 	 			  		
 	        <ListPreference 
 	            android:key="@string/max_retained" 
@@ -34,11 +32,45 @@
 	            
 	            android:summary="@string/max_retained_message" 
 	            
-	            android:entries="@array/Options"
-	            android:entryValues="@array/OptionValues"
-	            
 	            android:defaultValue="12"
+				
+				android:entryValues="@array/log_lengths_values" 
+				android:entries="@array/log_lengths"
 			></ListPreference>
  			
 		</PreferenceCategory>
+		
+		<PreferenceCategory android:title="@string/accel_title">
+		
+			<CheckBoxPreference 
+				android:title="@string/accel_title" 
+				android:summaryOff="@string/accel_off" 
+				android:summaryOn="@string/accel_on" 
+				android:key="@string/accel" 
+				android:disableDependentsState="false"
+				android:defaultValue="true"
+			></CheckBoxPreference>
+
+			<ListPreference 
+				android:dependency="@string/accel" 
+				android:key="@string/accel_sensitivity" 
+				android:summary="@string/accel_sensitivity_summ" 
+				android:title="@string/accel_sensitivity_title"
+				android:entryValues="@array/accel_sensitvities_values" 
+				android:entries="@array/accel_sensitvities" 
+				android:defaultValue="2"
+			></ListPreference>
+
+			<ListPreference 
+				android:dependency="@string/accel" 
+				android:key="@string/accel_rate" 
+				android:summary="@string/accel_rate_summ" 
+				android:title="@string/accel_rate_title"
+				android:entryValues="@array/accel_rates_values" 
+				android:entries="@array/accel_rates" 
+				android:defaultValue="3"
+			></ListPreference>
+
+		</PreferenceCategory>
+
 </PreferenceScreen>
