@@ -43,42 +43,83 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
+/**
+ * This activity is called when the user wants to either
+ * create a new die set, or edit an existing one
+ */
 public class CreateSet extends Activity 
 {
-	
+	//constants used for dialogs
 	private static final int NEW_DIE = 0;
 	private static final int EDIT_DIE = 1;
 	
+	
+	//gridView used to hold the the different dice
 	private GridView content;
+	
+	//TextView used to display the modifier for the die set
 	private TextView modifierView;
 	
+	
+	//the adapter to hold the dice
 	private DieAdapter adapter;
+	
+	//the die currently being edited
 	private Die currentEdit;
 	
+	
+	//the modifier for the current die set
 	private int modifier;
 	
+	/**
+	 * This method is called when the activity is first created to set the view for the
+	 * activity as well as do any global variable initialization necessary for the application
+	 */
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+
+		//sets the view of the activity to that defined in main.xml
 		setContentView(R.layout.create_die_set);
 		
+		//set the result of the activity to canceled 
 		setResult(RESULT_CANCELED);
 		
+		
+		//checks to see if there is any data that was saved from a previous instance of the application
+		//this data only exists when the phone's configuration is changed and the application re-launched
 		Bundle retained = (Bundle) getLastNonConfigurationInstance();	
+
+		//if there was no previous data 
 		if(retained == null)
+			//check the intent that started the activity for data 
 			retained = getIntent().getExtras();
 		
+		
+		//if the bundle isn't null
 		if(retained != null)
 		{
+			//get the modifier from the bundle
 			modifier = retained.getInt("modifier", 0);
 			
-			currentEdit = (Die) ((retained.getParcelable("currentEdit") == null) ? new Die():retained.getParcelable("currentEdit"));
-
-			@SuppressWarnings("unchecked")
-			ArrayList<Die> dice = (ArrayList<Die>) ((retained.getParcelableArrayList("currentDieSet") == null) ? new ArrayList<Die>():retained.getParcelableArrayList("currentDieSet"));
 			
+			//if the bundle contained data for the current edit, get it and set it
+			//if not, create a new default die and put it in current edit
+			currentEdit = (Die) ((retained.getParcelable("currentEdit") == null) ?
+					new Die():retained.getParcelable("currentEdit"));
+
+			
+			//if the bundle contained data for the current die set load it in to a local variable
+			//if not, create a new arrayList
+			@SuppressWarnings("unchecked")
+			ArrayList<Die> dice = (ArrayList<Die>) ((retained.getParcelableArrayList("currentDieSet") == null) ?
+					new ArrayList<Die>():retained.getParcelableArrayList("currentDieSet"));
+			
+			//instantiate the dieAdapter with the arrayList of dice as the initial data set
 			adapter = new DieAdapter(dice);
 		}
+
+		//if the bundle is null, initialize variables to their default values
 		else
 		{
 			modifier = 0;
@@ -86,7 +127,10 @@ public class CreateSet extends Activity
 			adapter = new DieAdapter();				
 		}
 				
+		//finds the gridView that will be holding the dice by its id
 		content = (GridView)findViewById(R.id.create_die_set_content);
+		
+		//sets the adapter of the gridView to the adapter we instantiated earlier
 		content.setAdapter(adapter);
 
 		content.setOnItemClickListener(
