@@ -120,9 +120,21 @@ public class MainWindow extends Activity
 	
 	//this is used to hold the last net force that was calculated
 	private double mLastNetForce;
+
+	//this is the threshold value that the method looks for to determine
+	//whether or not to trigger a roll
+	private double mForceThreshold;
+	
+	private boolean mAccelerometerEnabled;
+	
+	private static final int[] mSensorDelays = 
+		{SensorManager.SENSOR_DELAY_FASTEST, SensorManager.SENSOR_DELAY_GAME, 
+			SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_NORMAL}; 
+	
+	private int mSensorDelay;
 	
 	//this is the listener that listens for a change in the phone's sensors
-	private final SensorEventListener mSensorListener = new SensorEventListener()
+	private SensorEventListener mSensorListener = new SensorEventListener()
 	{
 			public void onAccuracyChanged(Sensor sensor, int accuracy) 
 			{
@@ -131,16 +143,14 @@ public class MainWindow extends Activity
 
 			//this is called when the value of a sensor is changed
 			public void onSensorChanged(SensorEvent event) 
-			{
+			{								
 				//we are only concerned with the accelerometer
-                if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+                if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && mAccelerometerEnabled)
                 {
                 	//this variable gets the new values from the sensor
                		float[] values = event.values;
                 	
-               		//this is the threshold value that the method looks for to determine
-               		//whether or not to trigger a roll
-                    double forceThreshHold = .1f;
+
                    
                     //this block calculates the total force that the phone is experiencing 
                     //as a fraction of the force of gravity
@@ -157,7 +167,7 @@ public class MainWindow extends Activity
                     //this checks to see if the previous net force was greater than the threshold and that
                     //the current force is less than the threshold to indicate that the phone has been 
                     //shaken in some way
-                    if((Math.abs(mLastNetForce) > forceThreshHold) && (Math.abs(netForce) < forceThreshHold))
+                    if((Math.abs(mLastNetForce) > mForceThreshold) && (Math.abs(netForce) < mForceThreshold))
                     {
                     	//rolls the die that is currently being focused
                 		makeResultFromFocused();
@@ -196,13 +206,13 @@ public class MainWindow extends Activity
         //for new installations, clears all the old preferences that may be present
         //in the phone so that there are no Class Cast exceptions from old preferences
         //stored in different types than the ones used in this version of the application
-        if(preferences.getBoolean("oH78ui", true))
+        if(preferences.getBoolean("jK4&jN", true))
         {
         	//clears all the preferences
         	preferences.edit().clear().commit();
                 	
         	//gets an editor for the preferences and adds a boolean 
-        	preferences.edit().putBoolean("oH78ui", false).commit();        	
+        	preferences.edit().putBoolean("jK4&jN", false).commit();        	
         }
         
         
@@ -210,6 +220,11 @@ public class MainWindow extends Activity
         //the variable is set to 12, the default
         maxRetained = Integer.parseInt(preferences.getString(getString(R.string.max_retained), 12+""));
 		
+        mAccelerometerEnabled = preferences.getBoolean(getString(R.string.accel), true);
+
+        mForceThreshold = Double.parseDouble(preferences.getString(getString(R.string.accel_sensitivity), ".1"));
+                
+        mSensorDelay = Integer.parseInt(preferences.getString(getString(R.string.accel_rate), "3"));
         
         //instantiates the adapter that will be used to hold the die sets in the view pane 
 		dieAdapter = new DieAdapter();
@@ -323,7 +338,7 @@ public class MainWindow extends Activity
 		
 		//attaches the listener that we declared earlier to this manager, with the sensor that we will be listening to,
 		//and the speed at which that sensor will update the application with its values 
-	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	    mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), mSensorDelays[mSensorDelay]);
 
 	    //finds the clear button with its id and sets a longClickListener to be associated with it
 	    ((Button)findViewById(R.id.clear_button)).setOnLongClickListener(
@@ -883,15 +898,15 @@ public class MainWindow extends Activity
     @Override
     protected void onPause()
     {
-    	super.onPause();
-           
+		super.onPause();
+    	
     	//if the database exists, and is open, close it
         if(mDbHelper != null && mDbHelper.isOpened())
         	mDbHelper.close();
         
         //unregisters the sensor listener so it does not receive 
         //information while the application is in the background
-        mSensorManager.unregisterListener(mSensorListener);
+        mSensorManager.unregisterListener(mSensorListener);     
     }
     
 	/**
@@ -899,38 +914,47 @@ public class MainWindow extends Activity
 	 */
  	protected void onResume() 
 	{
- 		//re-acquire the value of maxRetained from the shared preferences in case it was changed in the
+		super.onResume();
+
+		//re-acquire the value of maxRetained from the shared preferences in case it was changed in the
  		//preferences activity
         maxRetained = Integer.parseInt(preferences.getString(getString(R.string.max_retained), 12+""));
+        mAccelerometerEnabled = preferences.getBoolean(getString(R.string.accel), true);
+        mForceThreshold = Double.parseDouble(preferences.getString(getString(R.string.accel_sensitivity), ".1"));
+        mSensorDelay = Integer.parseInt(preferences.getString(getString(R.string.accel_rate), "3"));
         
         //resize the log if required
         logAdapter.resize();
         
         //update the logAdapter
         log.setAdapter(logAdapter);
-        
-        //re-register the listener on the phone's sensors
-        mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(SensorManager.SENSOR_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
  
+    
+        //re-register the listener on the phone's sensors
+		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), mSensorDelays[mSensorDelay]);
+       
+		        
         //if the database adapter exists, and isn't already open, open it
         if(mDbHelper != null && !mDbHelper.isOpened())
-        	mDbHelper.open();
-        
-		super.onResume();
+        	mDbHelper.open();       
 	}	
     
  	/**
  	 * Called when the activity is no longer visible to the user
  	 */
-	
 	protected void onStop()
 	{
+		super.onStop();
+
 		//get an instance of a preference editor for our preferences
 		SharedPreferences.Editor editor = preferences.edit();
 		
 		//place our log length variable into the preferences, overriding if it already exists
 		editor.putString(getString(R.string.max_retained), maxRetained+"");
-		
+		editor.putBoolean(getString(R.string.accel), mAccelerometerEnabled);
+		editor.putString(getString(R.string.accel_sensitivity), mForceThreshold+"");
+		editor.putString(getString(R.string.accel_rate), mSensorDelay+"");
+
 		//commit our changes
 		editor.commit();
 		
@@ -938,9 +962,13 @@ public class MainWindow extends Activity
         if(mDbHelper != null && mDbHelper.isOpened())
         	mDbHelper.close();
 		
-		super.onStop();
+        //unregisters the sensor listener so it does not receive 
+        //information while the application is in the background
+        mSensorManager.unregisterListener(mSensorListener);
 	}
 	
+
+
 	/**
 	 * Called when the activity is being destroyed as part of a configuration change
 	 * @return an object representing the activity's previous state 	
@@ -1140,7 +1168,7 @@ public class MainWindow extends Activity
 		
 		/**
 		 * Inserts the given object at the given index.
-		 * Overrided so that log length can be maintained
+		 * Overridden so that log length can be maintained
 		 * @param object	the object to insert
 		 * @param index		where to insert the object	
 		 */
