@@ -17,7 +17,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
 -->
 
-	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	<com.ribcakes.android.projects.dnd1.RotatingText xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/die_item_text"
 		
 		android:layout_width="wrap_content"
@@ -29,8 +29,13 @@
 		android:maxHeight="50dp"
 		
 		android:gravity="center"
-		android:textSize="13sp"
-		android:textColor="#000"
 		
+		android:textSize="12sp"
+		android:textColor="#000"
+
+		android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+
 		android:background="@drawable/button_background"
-	></TextView>
+	></com.ribcakes.android.projects.dnd1.RotatingText>

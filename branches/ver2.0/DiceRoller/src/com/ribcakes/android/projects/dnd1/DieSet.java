@@ -225,7 +225,7 @@ public class DieSet implements Parcelable
 			rtrn += i.getCoefficient()+"d"+i.getValue()+"+";
 		}
 		rtrn += this.modifier;
-
+		
 		return rtrn;
 	}
 	
@@ -238,7 +238,7 @@ public class DieSet implements Parcelable
 		String value = "";
 		Die parsedDie = null;
 				
-		while(string.contains("+"))
+		while(string.contains("d"))
 		{
 			locationOfPlus = string.indexOf("+");
 			workingString = string.substring(0, locationOfPlus);
@@ -250,9 +250,9 @@ public class DieSet implements Parcelable
 			parsedDie = new Die(Integer.parseInt(coefficient), Integer.parseInt(value));
 			this.dice.add(parsedDie);
 			
-			string = string.replace(workingString+"+", "");
+			string = string.replaceFirst(workingString, "");
+			string = string.replaceFirst("\\+", "");
 		}
-		
 		this.modifier = Integer.parseInt(string);
 	}
 	

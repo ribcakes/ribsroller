@@ -32,5 +32,9 @@
 		android:textSize="13sp"
 		android:textColor="#000"
 		
+		android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+
 		android:background="@drawable/button_background"
 	></TextView>
