@@ -70,6 +70,9 @@ public class CreateSet extends Activity
 	
 	//the modifier for the current die set
 	private int modifier;
+		
+	private EditText title;
+	
 	
 	/**
 	 * This method is called when the activity is first created to set the view for the
@@ -84,6 +87,9 @@ public class CreateSet extends Activity
 		
 		//set the result of the activity to canceled 
 		setResult(RESULT_CANCELED);
+		
+		
+		title = ((EditText)findViewById(R.id.title));
 		
 		
 		//checks to see if there is any data that was saved from a previous instance of the application
@@ -117,6 +123,8 @@ public class CreateSet extends Activity
 			
 			//instantiate the dieAdapter with the arrayList of dice as the initial data set
 			adapter = new DieAdapter(dice);
+			
+			title.setText(retained.getString("title"));
 		}
 
 		//if the bundle is null, initialize variables to their default values
@@ -124,7 +132,8 @@ public class CreateSet extends Activity
 		{
 			modifier = 0;
 			currentEdit = new Die();
-			adapter = new DieAdapter();				
+			adapter = new DieAdapter();	
+			title.setText("");
 		}
 				
 		//finds the gridView that will be holding the dice by its id
@@ -184,7 +193,7 @@ public class CreateSet extends Activity
 				if(adapter.getDice().size() > 0)
 				{
 					Intent i = new Intent();
-					i.putExtra("dieSetParcel", new DieSet(((EditText)findViewById(R.id.title)).getText().toString(),adapter.getDice(), modifier));
+					i.putExtra("dieSetParcel", new DieSet(title.getText().toString(),adapter.getDice(), modifier));
 					setResult(RESULT_OK, i);
 				}
 				else
@@ -376,6 +385,7 @@ public class CreateSet extends Activity
 	{
 		Bundle retain = new Bundle();
 		retain.putInt("modifier", modifier);
+		retain.putString("title", title.getText().toString());
 		retain.putParcelable("currentEdit", currentEdit);		
 		retain.putParcelableArrayList("currentDieSet", adapter.getDice());
 		

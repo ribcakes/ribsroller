@@ -773,6 +773,7 @@ public class MainWindow extends Activity
 				//put extras into the intent so the CreateSet activity can correctly display the
 				//value of the die set to be modified
 				i.putExtra("modifier", dieAdapter.getItem(itemGeneratedContext).getModifier());
+				i.putExtra("title", dieAdapter.getItem(itemGeneratedContext).getTitle());
 				i.putParcelableArrayListExtra("currentDieSet", dieAdapter.getItem(itemGeneratedContext).getDice());
 				
         		//launch the intent and wait for a response from the activity when it closes
