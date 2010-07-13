@@ -22,26 +22,41 @@ package com.ribcakes.android.projects.dnd1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Die implements Parcelable, Comparable<Die>
+/**
+ * This class is used to represent a die
+ */
+public class Die implements Parcelable
 {
-
+	//the value of the die
 	private int mValue;
+	
+	//how many times to roll this die
 	private int mCoefficient;
 	
-	
+	/**
+	 * Public Constructor - Default Constructor
+	 */
 	public Die() 
 	{
 		this.mValue = 0;
 		this.mCoefficient = 0;
 	}
 	
-	
+	/**
+	 * Public Constructor
+	 * @param mCoefficient	the coefficient for the die
+	 * @param mValue	the value of the die
+	 */
 	public Die(int mCoefficient, int mValue) 
 	{
 		this.mValue = mValue;
 		this.mCoefficient = mCoefficient;
 	}
 
+	/**
+	 * Public Constructor
+	 * @param source	the parcel from which to construct a die
+	 */
 	public Die(Parcel source) 
 	{
 		this.mCoefficient = source.readInt();
@@ -81,25 +96,23 @@ public class Die implements Parcelable, Comparable<Die>
 		this.mCoefficient = mCoefficient;
 	}
 
-	public int compareTo(Die another) 
-	{
-		if(this.mValue == another.getValue())
-			return 0;
-		else if(this.mValue > another.getValue())
-			return 1;
-		else
-			return -1;
-	}
-	
+	/**
+	 * Returns a string representation of the die
+	 * @return a string representation of the die
+	 */
 	public String toString()
 	{
 		return this.mCoefficient+"d"+this.mValue;
 	}
 
+	//the creator used by the parsable interface to inflate a parcel
 	public static final Parcelable.Creator<Die> CREATOR 
 			= new Parcelable.Creator<Die>() 
 				{
-		
+					/**
+					 * Used to inflate a die object from a parcel
+					 * @param source the parcel from which to construct the die
+					 */
 					public Die createFromParcel(Parcel source) 
 					{
 						return new Die(source);
@@ -112,12 +125,18 @@ public class Die implements Parcelable, Comparable<Die>
 					
 				};
 
+	/**
+	 * Parcel method (??)
+	 */
 	public int describeContents()
 	{
 		return 0;
 	}
 
-
+	/**
+	 * Collapses the die into a parcel object
+	 * @param dest the parcel for the die to be placed in
+	 */
 	public void writeToParcel(Parcel dest, int flags) 
 	{
 		dest.writeInt(mCoefficient);
