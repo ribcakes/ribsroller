@@ -89,7 +89,7 @@ public class MainWindow extends Activity
 	private GridView dieLibrary;
 	
 	//this is the adapter that holds all of the die set objects so that they can be rolled
-	private DieAdapter dieAdapter;
+	private DieSetAdapter dieAdapter;
 
 	
 	//this is the view that holds all of the results for the rolls
@@ -227,7 +227,7 @@ public class MainWindow extends Activity
         mSensorDelay = Integer.parseInt(preferences.getString(getString(R.string.accel_rate), "3"));
         
         //instantiates the adapter that will be used to hold the die sets in the view pane 
-		dieAdapter = new DieAdapter();
+		dieAdapter = new DieSetAdapter();
 		
 		//finds the gridView that will be holding the dice by using its id and sets it to a 
 		//global variable
@@ -590,12 +590,13 @@ public class MainWindow extends Activity
 		//instantiates the inflater used to inflate any custom layouts
 		LayoutInflater inflator = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	
+		//determine which dialog to create 
 		switch(id)
 		{
 			//if the dialog is to confirm that the user wants to reset all die sets to default
 			case RESET_ALL_TO_DEFAULT:
 				
-				//inflates the custom dialog so we can use it in the dialog we are building
+				//inflates the custom layout so we can use it in the dialog we are building
 				View confirmDialog = inflator.inflate(R.layout.confirm_dialog, null);
 				
 				//creates the dialog to return
@@ -657,12 +658,10 @@ public class MainWindow extends Activity
 							{
 								//removes the dialog from the user's view
 								dialog.dismiss();
-								
-								//does nothing else
 							}
 						})
 
-				//takes the defined attributes and makes them into a Dialog object
+				//take the defined attributes and make them into a Dialog object
 				.create();
 				
 				return confirm;
@@ -751,7 +750,6 @@ public class MainWindow extends Activity
  				break;
  		}
 	}
- 	
 
  	/**
  	 * Called when an item from a context is selected
@@ -812,7 +810,6 @@ public class MainWindow extends Activity
 		return false;
 	}
 	
-
 	/**
 	 * Called when an activity started with startActivityForResult ends
 	 * @param requestCode 	The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
@@ -892,7 +889,6 @@ public class MainWindow extends Activity
 		
 	}
 	
-
  	/**
  	 * Called when the activity goes into the background
  	 */
@@ -968,13 +964,10 @@ public class MainWindow extends Activity
         mSensorManager.unregisterListener(mSensorListener);
 	}
 	
-
-
 	/**
 	 * Called when the activity is being destroyed as part of a configuration change
 	 * @return an object representing the activity's previous state 	
 	 */
-
 	@Override
 	public Bundle onRetainNonConfigurationInstance()
 	{
@@ -1001,7 +994,7 @@ public class MainWindow extends Activity
 	 *
 	 * Class used to render the die sets properly in the gridView
 	 */
-	public class DieAdapter extends BaseAdapter 
+	public class DieSetAdapter extends BaseAdapter 
 	{
 		//variable to keep track of the die sets
 	    private ArrayList<DieSet> dice;
@@ -1009,7 +1002,7 @@ public class MainWindow extends Activity
 	    /**
 	     * Public Constructor - Default Constructor
 	     */
-	    public DieAdapter()
+	    public DieSetAdapter()
 	    {
 	        dice = new ArrayList<DieSet>();
 	    }
@@ -1019,7 +1012,7 @@ public class MainWindow extends Activity
 	     * @param dice	The content for the adapter to start with
 	     */
 		@SuppressWarnings("unchecked")
-		public DieAdapter(ArrayList<DieSet> dice)
+		public DieSetAdapter(ArrayList<DieSet> dice)
 	    {
 	        this.dice = (ArrayList<DieSet>) dice.clone();
 		}
