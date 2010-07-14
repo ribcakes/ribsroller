@@ -22,9 +22,14 @@ package com.ribcakes.android.projects.dnd1;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+/**
+ * This class is used to manage the preference view
+ */
 public class Preferences extends PreferenceActivity 
 {
-	/** Called when the activity is first created. */
+	/** 
+	 * Called when the activity is first created. 
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
