@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteFullException;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -485,7 +486,15 @@ public class MainWindow extends Activity
 	 */
 	private void addDieSetToDataBase(DieSet d)
 	{
-		d.setDatabaseRowID(mDbHelper.addDieSet(d));
+		try
+		{
+			d.setDatabaseRowID(mDbHelper.addDieSet(d));
+		}
+		catch(SQLiteFullException e)
+		{
+			Toast.makeText(this, "WARNING: Die Set could not be added." +
+					"  There is no available space for the databse to expand.", Toast.LENGTH_LONG);
+		}
 	}
 
 	/**

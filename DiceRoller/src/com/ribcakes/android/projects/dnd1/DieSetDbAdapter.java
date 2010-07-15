@@ -24,6 +24,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -149,7 +150,7 @@ public class DieSetDbAdapter
 	     * @param d	the die set to be added to the database
 	     * @return	the rowID of the row that the die set was placed in, -1 if the insert was unsuccessful
 	     */
-	    public long addDieSet(DieSet d)
+	    public long addDieSet(DieSet d) throws SQLiteFullException
 	    {
 	    	ContentValues values = new ContentValues();
 	    	values.put(KEY_TITLE, d.getTitle());
@@ -218,5 +219,4 @@ public class DieSetDbAdapter
 	    	
 	    	return mDb.update(DATABASE_TABLE, values, KEY_ROWID + "=" + rowID, null) > 0;
 	    }
-	    
 }
