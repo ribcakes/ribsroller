@@ -1,0 +1,17 @@
+# Rib's Roller #
+
+Rib's Roller is a dice rolling application.  It was originally designed with Dungeons and Dragons© in mind, but as the project progressed, it has deviated from the d20 System©.  The program now supports the ability to make dice of any kind in any combination.
+
+# Installation #
+An installation package for the application can be obtained through the Android Marketplace,
+if you are viewing this web page on your phone, you can go to the following link to download the app from the market:
+
+[Rib's Roller](http://market.android.com/search?q=pname:com.ribcakes.android.projects.dnd1)
+
+Or you can go to one of the following websites to obtain a QR code for the app that can be scanned using a Barcode Scanner application:
+
+[Android Zoom](http://www.androidzoom.com/android_games/casual/ribs-roller_glwh.html?nav=area)
+
+[AndroidLib](http://www.androlib.com/android.application.com-ribcakes-android-projects-dnd1-CiDw.aspx)
+
+[AndroidPit](http://www.androidpit.com/en/android/market/apps/app/com.ribcakes.android.projects.dnd1/Rib-s-Roller)
